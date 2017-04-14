@@ -41,13 +41,15 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.tab_bottom_container)
     TabLayout mTablayout;
 
-    //ViewPager
+    //ViewPager滑动
     @BindView(R.id.vp_container)
     ViewPager mViewPager;
 
+    //Menu菜单
     private Menu mMenu;
 
-    private long ExitTime;    //按下back键的时间
+    //按下back键的时间
+    private long ExitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,6 @@ public class MainActivity extends BaseActivity {
         /*DataKeeper dataKeeper = new DataKeeper(this,"HH");
         dataKeeper.put("Id",12);
         NotificationUtil.notification(this,"");*/
-
 
         //设置toolbar为原来的actionBar
         setSupportActionBar(toolbar);

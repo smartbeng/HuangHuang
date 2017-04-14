@@ -7,7 +7,7 @@ ext {
             package          : "com.lansum.lansumhh",
             buildToolsVersion: "25.0.1",
             compileVersion   : 24,
-            minSdk           : 15,
+            minSdk           : 19,
             targetSdk        : 24,
             versionCode      : 1,
             versionName      : "1.0",
