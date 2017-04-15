@@ -22,7 +22,6 @@ ext {
 
 }
 
-
 buildscript {
     repositories {
         jcenter()
@@ -42,7 +41,6 @@ allprojects {
         jcenter()
     }
 }
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

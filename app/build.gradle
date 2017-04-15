@@ -42,7 +42,7 @@ dependencies {
     // 可选包  主要是为了方便使用okhhtp
     compile files('libs/glide-3.7.0.jar')
     compile files('libs/picasso-2.5.2.jar')
-    compile project(':CommonLibrary1')
+    compile project(':Library')
     compile 'com.jakewharton:butterknife:8.5.1'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'

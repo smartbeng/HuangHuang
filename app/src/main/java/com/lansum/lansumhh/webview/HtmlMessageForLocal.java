@@ -35,7 +35,7 @@ public class HtmlMessageForLocal {
         if (methodName.equals("setPasswordFromJS")) {
             //DataKeeper dataKeeper = new DataKeeper(loginActivity,"HH");
             //dataKeeper.put("UserPwd",data);
-            Log.e(TAG, "callHandler: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            Log.e(TAG, "callHandler: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             HelperSP.saveToSP(loginActivity, "UserPwd", "UserPwd", data);
             // 登录成功
         } else if (methodName.equals("loginSuccessFromJS")) {
