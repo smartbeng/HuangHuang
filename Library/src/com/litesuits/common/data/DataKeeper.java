@@ -97,6 +97,7 @@ public class DataKeeper {
                 put(key, HexUtil.encodeHexStr(bytes));
             }
         } catch (Exception e) {
+            android.util.Log.e(TAG, "put: fhhhhhhhhhhhhhhhhhhhhh" + e.toString());
             e.printStackTrace();
         }
     }

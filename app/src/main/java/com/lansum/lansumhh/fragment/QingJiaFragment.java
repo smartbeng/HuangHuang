@@ -3,6 +3,7 @@ package com.lansum.lansumhh.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ public class QingJiaFragment extends Fragment {
 
     private WebView QingJiaWebView;
 
+    private Toolbar toolbar;
+
     public QingJiaFragment() {
         // Required empty public constructor
     }
@@ -30,8 +33,9 @@ public class QingJiaFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_qing_jia, container, false);
         QingJiaWebView = (WebView) view.findViewById(R.id.qingjia_webview);
-        QingJiaWebView.getSettings().setJavaScriptEnabled(true);
-        QingJiaWebView.setWebViewClient(new WebViewClient());
+
+        //toolbar = (Toolbar) view.findViewById(R.id.main_toolbar);
+
         QingJiaWebView.loadUrl(Constants.urlHostBase + Constants.urlQingJia);
         return view;
     }

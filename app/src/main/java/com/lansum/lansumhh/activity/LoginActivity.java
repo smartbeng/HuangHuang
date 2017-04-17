@@ -1,5 +1,6 @@
 package com.lansum.lansumhh.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,18 +15,21 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
+
+    public static Activity activity;
 
     private static final String TAG = "LoginActivity";
+
     @BindView(R.id.login_web_view)
     WebViewController loginWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity=this;
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        Log.e(TAG, "onCreate: ffffff" );
         loginWebView.loadUrl(Constants.urlHostBase + Constants.urlLogIn);
     }
 }

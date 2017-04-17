@@ -1,16 +1,22 @@
 package com.lansum.lansumhh.webview;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
+
+import com.lansum.lansumhh.R;
+import com.lansum.lansumhh.activity.BaseActivity;
 import com.lansum.lansumhh.activity.LoginActivity;
 import com.lansum.lansumhh.activity.MainActivity;
 import com.lansum.lansumhh.http.Constants;
 import com.lansum.lansumhh.util.CookieUtil;
 import com.lansum.lansumhh.util.HelperSP;
 import com.litesuits.common.data.DataKeeper;
+
+import static com.lansum.lansumhh.activity.LoginActivity.activity;
 
 /**
  * 本地与WebView交互类
@@ -22,8 +28,6 @@ import com.litesuits.common.data.DataKeeper;
 public class HtmlMessageForLocal {
     //网页根据点击的WebView反馈的接口名
     private static final String TAG = "MehtodName";
-    //登陆的Activity
-    LoginActivity loginActivity = new LoginActivity();
     //声明Handler
     private Handler mHandler = new Handler();
 
@@ -33,13 +37,12 @@ public class HtmlMessageForLocal {
         Log.e(TAG, "Method:" + methodName);
 
         if (methodName.equals("setPasswordFromJS")) {
-            //DataKeeper dataKeeper = new DataKeeper(loginActivity,"HH");
-            //dataKeeper.put("UserPwd",data);
-            Log.e(TAG, "callHandler: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-            HelperSP.saveToSP(loginActivity, "UserPwd", "UserPwd", data);
-            // 登录成功
-        } else if (methodName.equals("loginSuccessFromJS")) {
-            Log.e(TAG, "callHandler: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+
+            DataKeeper dataKeeper = new DataKeeper(activity,"HH");
+            dataKeeper.put("UserPwd",data);
+
+        } else if (methodName.equals("loginSuccessFromJS")) {  // 登录成功
+            //打开登陆页面 并获取cookie
             loginSuccessFromJS();
 
             // 打开新窗口
@@ -101,8 +104,7 @@ public class HtmlMessageForLocal {
          * getFilesDir()方法用于获取/data/data/<application package>/files目录
          * getAbsolutePath()：返回抽象路径名的绝对路径名字符串。
          */
-
-        filePath = loginActivity.getApplicationContext().getFilesDir().getAbsolutePath();
+        filePath = activity.getApplicationContext().getFilesDir().getAbsolutePath();
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -117,21 +119,29 @@ public class HtmlMessageForLocal {
                 // 从cookie中获取userID
                 final String UserId = cookieUtil.GetCookieParamInt(CookieStr, "userId");
                 String userVers = cookieUtil.GetCookieParamInt(CookieStr, "userVers");
+
                 // 保存字段
-                DataKeeper dataKeeper = new DataKeeper(loginActivity.getApplicationContext(),"HH");
+                DataKeeper dataKeeper = new DataKeeper(activity.getApplicationContext(),"HH");
                 dataKeeper.put("UserId",UserId);
                 dataKeeper.put("UserVers",userVers);
                 dataKeeper.put("name",name);
                 dataKeeper.put("JobName",jobName);
                 final String pwd = dataKeeper.get("UserPwd","");
-                loginActivity.getResources();
+                activity.getResources();
             }
         });
-        Intent i = new Intent(loginActivity, MainActivity.class);
-        i.putExtra("pull", true);
-        i.putExtra("splashEnable", 1);
-        loginActivity.startActivity(i);
-        loginActivity.finish();
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.putExtra("pull", true);
+        intent.putExtra("splashEnable", 1);
+        activity.startActivity(intent);
+        activity.finish();
     }
+
+    /**
+     * 打开新窗口
+     * @param url
+     */
+
+
 
 }

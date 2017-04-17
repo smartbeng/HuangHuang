@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.lansum.lansumhh.R;
@@ -34,8 +35,9 @@ public class MainActivity extends BaseActivity {
 
 
     //头部导航栏
-    @BindView(R.id.main_toolbar)
-    Toolbar toolbar;
+    //@BindView(R.id.main_toolbar)
+    //Toolbar toolbar;
+
 
     //底部导航的空间容器
     @BindView(R.id.tab_bottom_container)
@@ -60,14 +62,15 @@ public class MainActivity extends BaseActivity {
         dataKeeper.put("Id",12);
         NotificationUtil.notification(this,"");*/
 
-        //设置toolbar为原来的actionBar
-        setSupportActionBar(toolbar);
+        //让toolbar继承actionBar的属性
+        /*setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowTitleEnabled(false);   //去除标题栏
             actionBar.setHomeAsUpIndicator(R.drawable.navbar_message);
-        }
+        }*/
+
         initView();
     }
 
@@ -90,6 +93,10 @@ public class MainActivity extends BaseActivity {
             tab.setIcon(item.getIcon());
         }
     }
+
+
+
+
 
     /**
      * 再按一次退出
@@ -133,30 +140,19 @@ public class MainActivity extends BaseActivity {
             return null;
         }
 
+
+
         @Override
         public int getCount() {
             return mMenu.size();
         }
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
+    /*public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_head, menu);
         return true;
-    }
+    }*/
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.drawable.navbar_message:
-                ToastStudio.showToast(this,"通知呀");
-                break;
-            case R.id.nation:
-                ToastStudio.showToast(this,"开门呀");
-                break;
-            default:
-        }
-        return true;
-    }
 
 
 }

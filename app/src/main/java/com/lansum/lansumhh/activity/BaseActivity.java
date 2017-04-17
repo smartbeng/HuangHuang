@@ -1,5 +1,8 @@
 package com.lansum.lansumhh.activity;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 
 /**
@@ -8,6 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
+    public static Activity activity;
+    @Override
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        activity = this;
+        super.onCreate(savedInstanceState, persistentState);
+    }
 }
 
 

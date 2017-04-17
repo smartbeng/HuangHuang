@@ -2,14 +2,23 @@ package com.lansum.lansumhh.webview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Build;
 
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.webkit.JsResult;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.lansum.lansumhh.activity.BaseActivity;
+import com.lansum.lansumhh.activity.LoginActivity;
+
+import static org.greenrobot.eventbus.EventBus.TAG;
 
 /**
  * Created by MaiBenBen on 2017/4/14.
@@ -22,6 +31,7 @@ public class WebViewController extends WebView {
 
     public WebViewController(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context =  context;
         webviewSettings();
     }
 
@@ -49,7 +59,6 @@ public class WebViewController extends WebView {
     @SuppressLint("JavascriptInterface")
     private void webviewSettings() {
 
-        this.context = context;
         control = this;
 
         // TODO Auto-generated constructor stub
@@ -66,7 +75,7 @@ public class WebViewController extends WebView {
         webSettings.setDomStorageEnabled(true);
         webSettings.setGeolocationEnabled(true);
         webSettings.setAppCacheEnabled(true);
-        //webSettings.setAppCachePath(context.getCacheDir().getPath());
+        webSettings.setAppCachePath(context.getCacheDir().getPath());
         webSettings.setDefaultTextEncodingName("gbk");
         // 屏幕自适应
         webSettings.setUseWideViewPort(true);
@@ -93,10 +102,27 @@ public class WebViewController extends WebView {
 
 
         HtmlMessageForLocal newWebViewActivity = new HtmlMessageForLocal();
+
         this.addJavascriptInterface(newWebViewActivity,"android");
 
-        MyWebViewClient client = new MyWebViewClient(context);
+        MyWebViewClient client = new MyWebViewClient(context){
+            @Override
+            public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+                //
+                AlertDialog.Builder b2 = new AlertDialog.Builder(context).setTitle("标题").setMessage(message)
+                        .setPositiveButton("ok", new AlertDialog.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                result.confirm();
+                            }
+                        });
 
+                b2.setCancelable(false);
+                b2.create();
+                b2.show();
+                return true;
+            }
+        };
         setWebChromeClient(client);
         setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
