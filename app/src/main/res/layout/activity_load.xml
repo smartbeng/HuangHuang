@@ -10,6 +10,5 @@
         android:id="@+id/loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/loading"
-        android:layout_alignParentTop="true" />
+        android:src="@drawable/loading" />
 </RelativeLayout>

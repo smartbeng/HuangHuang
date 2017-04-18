@@ -16,7 +16,8 @@ import com.lansum.lansumhh.util.CookieUtil;
 import com.lansum.lansumhh.util.HelperSP;
 import com.litesuits.common.data.DataKeeper;
 
-import static com.lansum.lansumhh.activity.LoginActivity.activity;
+import static com.lansum.lansumhh.activity.LoginActivity.loginActivity;
+
 
 /**
  * 本地与WebView交互类
@@ -38,7 +39,7 @@ public class HtmlMessageForLocal {
 
         if (methodName.equals("setPasswordFromJS")) {
 
-            DataKeeper dataKeeper = new DataKeeper(activity,"HH");
+            DataKeeper dataKeeper = new DataKeeper(loginActivity,"HH");
             dataKeeper.put("UserPwd",data);
 
         } else if (methodName.equals("loginSuccessFromJS")) {  // 登录成功
@@ -104,7 +105,7 @@ public class HtmlMessageForLocal {
          * getFilesDir()方法用于获取/data/data/<application package>/files目录
          * getAbsolutePath()：返回抽象路径名的绝对路径名字符串。
          */
-        filePath = activity.getApplicationContext().getFilesDir().getAbsolutePath();
+        filePath = loginActivity.getApplicationContext().getFilesDir().getAbsolutePath();
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -121,20 +122,20 @@ public class HtmlMessageForLocal {
                 String userVers = cookieUtil.GetCookieParamInt(CookieStr, "userVers");
 
                 // 保存字段
-                DataKeeper dataKeeper = new DataKeeper(activity.getApplicationContext(),"HH");
+                DataKeeper dataKeeper = new DataKeeper(loginActivity.getApplicationContext(),"HH");
                 dataKeeper.put("UserId",UserId);
                 dataKeeper.put("UserVers",userVers);
                 dataKeeper.put("name",name);
                 dataKeeper.put("JobName",jobName);
                 final String pwd = dataKeeper.get("UserPwd","");
-                activity.getResources();
+                loginActivity.getResources();
             }
         });
-        Intent intent = new Intent(activity, MainActivity.class);
+        Intent intent = new Intent(loginActivity, MainActivity.class);
         intent.putExtra("pull", true);
         intent.putExtra("splashEnable", 1);
-        activity.startActivity(intent);
-        activity.finish();
+        loginActivity.startActivity(intent);
+        loginActivity.finish();
     }
 
     /**

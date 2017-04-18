@@ -17,19 +17,24 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends BaseActivity {
 
-    public static Activity activity;
-
-    private static final String TAG = "LoginActivity";
+    public static Activity loginActivity;
 
     @BindView(R.id.login_web_view)
     WebViewController loginWebView;
 
+    private boolean isLogin = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activity=this;
+        loginActivity=this;
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        loginWebView.loadUrl(Constants.urlHostBase + Constants.urlLogIn);
+        if (isLogin){
+            loginWebView.loadUrl(Constants.urlHostBase + Constants.urlLogIn);
+            isLogin = false;
+        }else {
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        }
     }
 }

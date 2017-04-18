@@ -5,7 +5,7 @@
     tools:context="com.lansum.lansumhh.fragment.QingJiaFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <WebView
+    <com.lansum.lansumhh.webview.WebViewController
         android:id="@+id/qingjia_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

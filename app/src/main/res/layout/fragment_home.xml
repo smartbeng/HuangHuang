@@ -6,21 +6,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/home_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:title="我的"
-            android:titleTextColor="@android:color/white"/>
+            android:background="@android:color/holo_blue_bright" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的"
+                android:textSize="18sp"
+                android:layout_marginLeft="185dp"
+                android:textColor="@android:color/white"/>
+        </android.support.v7.widget.Toolbar>
 
         <com.lansum.lansumhh.view.CommItemView
             android:id="@+id/item_sign"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="45dp"
             app:is_divider_visibility="true"
             app:left_img_src="@drawable/me_personinfo"
             app:left_text="资料"
@@ -29,8 +33,7 @@
         <com.lansum.lansumhh.view.CommItemView
             android:id="@+id/item_kaoqin"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="45dp"
             app:is_divider_visibility="true"
             app:left_img_src="@drawable/me_kaoqin"
             app:left_text="考勤"
@@ -39,8 +42,7 @@
         <com.lansum.lansumhh.view.CommItemView
             android:id="@+id/item_team"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="45dp"
             app:is_divider_visibility="true"
             app:left_img_src="@drawable/me_group"
             app:left_text="团队"
@@ -49,8 +51,7 @@
         <com.lansum.lansumhh.view.CommItemView
             android:id="@+id/item_nation"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="45dp"
             app:is_divider_visibility="true"
             app:left_img_src="@drawable/me_message"
             app:left_text="通知"
@@ -59,8 +60,7 @@
         <com.lansum.lansumhh.view.CommItemView
             android:id="@+id/item_setting"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="45dp"
             app:is_divider_visibility="true"
             app:left_img_src="@drawable/me_setting"
             app:left_text="设置"

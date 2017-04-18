@@ -3,9 +3,11 @@ package com.lansum.lansumhh.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.lansum.lansumhh.R;
@@ -46,13 +48,11 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         view = inflater.inflate(R.layout.fragment_main, container, false);
         mainWebView = (WebViewController) view.findViewById(R.id.main_webview);
         mainWebView.loadUrl(Constants.urlHostBase + Constants.urlIndex);
+
         tongImageView = (ImageView) view.findViewById(R.id.tongZhiImage);
         doorImageView = (ImageView) view.findViewById(R.id.open_door);
-
         tongImageView.setOnClickListener(this);
         doorImageView.setOnClickListener(this);
-
-
         return view;
     }
 
@@ -72,15 +72,5 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 break;
         }
     }
-
-
-
-
-
-
-
-
-
-
 
 }

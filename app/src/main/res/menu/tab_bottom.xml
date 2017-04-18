@@ -5,7 +5,7 @@
         android:icon="@drawable/main_bottom_selector"
         android:title="首页" />
     <item
-        android:id="@+id/menu_pressed"
+        android:id="@+id/menu_leave"
         android:icon="@drawable/tab_plus"
         android:title="请假" />
     <item
