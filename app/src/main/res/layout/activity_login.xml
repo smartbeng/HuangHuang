@@ -4,9 +4,9 @@
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lansum.lansumhh.activity.LoginActivity">
+    tools:context="com.lansum.eip.activity.LoginActivity">
 
-    <com.lansum.lansumhh.webview.WebViewController
+    <com.lansum.eip.webview.WebViewController
         android:id="@+id/login_web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

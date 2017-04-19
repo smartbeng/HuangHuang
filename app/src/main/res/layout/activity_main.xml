@@ -6,7 +6,7 @@
     android:background="@null"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lansum.lansumhh.activity.MainActivity">
+    tools:context="com.lansum.eip.activity.MainActivity">
 
 
     <android.support.v4.view.ViewPager
