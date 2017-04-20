@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.lansum.eip.R;
-import com.lansum.eip.activity.DoorActivity;
-import com.lansum.eip.activity.NoticeActivity;
+import com.lansum.eip.activity.mainfragment.DoorActivity;
+import com.lansum.eip.activity.mainfragment.NoticeActivity;
 import com.lansum.eip.http.Constants;
 import com.lansum.eip.webview.WebViewController;
 
@@ -58,10 +58,10 @@ public class MainFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tongZhiImage:
+            case R.id.tongZhiImage:  //跳转到通知界面
                 startActivity(new Intent(getActivity(), NoticeActivity.class));
                 break;
-            case R.id.open_door:
+            case R.id.open_door:     //跳转到手动点击开门界面
                 Intent intent = new Intent(getActivity(),DoorActivity.class);
                 startActivity(intent);
                 break;

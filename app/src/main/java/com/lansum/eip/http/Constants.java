@@ -6,19 +6,27 @@ package com.lansum.eip.http;
 
 public class Constants {
 
-    public static String urlHost = "http://devftp.lansum.cn/huanghuang/";
+    //主页
     public static String urlHostBase="http://devftp.lansum.cn/huanghuang/";
+    //加强版主页
     public static String urlHostHigh="http://devftp.lansum.cn/huanghuangHigh/";
+    //登陆
     public static String urlLogIn="login.html";
+    //主页
     public static String urlIndex = "index.html?navbarstyle=0&&WebViewRefreshNotification=attendance";
+    //手动开门
     public static String urlOpen = "open.html";
     public static String urlPersonal = "personal.html?navbarstyle=1";
 
-    //设置
+    //考勤
     public static String urlAttendance = "attendance.html?navbarstyle=1&&WebViewRefreshNotification=attendance&&all=1";
+    //团队
     public static String urlTeam = "team.html?navbarstyle=1";
+    //系统通知
     public static String urlSysmessage = "sysmessage.html?navbarstyle=1";
+    //修改密码
     public static String urlChangePwd = "changepwd.html?navbarstyle=1";
+    //关于我们
     public static String urlAboutUS = "aboutus.html?navbarstyle=1";
 
 

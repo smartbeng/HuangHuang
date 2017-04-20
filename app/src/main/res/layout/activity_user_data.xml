@@ -2,22 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_notice"
+    android:id="@+id/activity_user_data"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lansum.eip.activity.mainfragment.NoticeActivity">
+    tools:context="com.lansum.eip.activity.homefragment.UserDataActivity">
+
     <android.support.v7.widget.Toolbar
-        android:id="@+id/notice_toolbar"
+        android:id="@+id/user_data_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:background="#101012"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_scrollFlags="scroll|enterAlways" />
+
     <com.lansum.eip.webview.WebViewController
-        android:id="@+id/notice_list"
-        android:layout_below="@+id/notice_toolbar"
+        android:id="@+id/user_data_web"
+        android:layout_below="@+id/user_data_toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </com.lansum.eip.webview.WebViewController>
+
 </RelativeLayout>

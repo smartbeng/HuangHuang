@@ -29,7 +29,7 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         if (isLogin){
             loginWebView.loadUrl(Constants.urlHostBase + Constants.urlLogIn);
-            isLogin = false;
+            isLogin = true;
         }else {
             startActivity(new Intent(LoginActivity.this,MainActivity.class));
         }

@@ -11,31 +11,25 @@
         <android.support.v7.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@android:color/holo_blue_bright" >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我的"
-                android:textSize="18sp"
-                android:layout_marginLeft="185dp"
-                android:textColor="@android:color/white"/>
+            android:background="@color/colorPrimary" >
         </android.support.v7.widget.Toolbar>
 
         <com.lansum.eip.view.CommItemView
-            android:id="@+id/item_sign"
+            android:id="@+id/item_data"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             app:is_divider_visibility="true"
-            app:left_img_src="@drawable/me_personinfo"
+            app:left_img_src="@drawable/me_person3x"
             app:left_text="资料"
-            app:right_img_src="@drawable/icon_next" />
+            app:right_img_src="@drawable/icon_next"
+            android:layout_marginTop="20dp"/>
 
         <com.lansum.eip.view.CommItemView
             android:id="@+id/item_kaoqin"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             app:is_divider_visibility="true"
-            app:left_img_src="@drawable/me_kaoqin"
+            app:left_img_src="@drawable/me_kaoqin3x"
             app:left_text="考勤"
             app:right_img_src="@drawable/icon_next" />
 
@@ -44,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             app:is_divider_visibility="true"
-            app:left_img_src="@drawable/me_group"
+            app:left_img_src="@drawable/me_group3x"
             app:left_text="团队"
             app:right_img_src="@drawable/icon_next" />
 
@@ -53,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             app:is_divider_visibility="true"
-            app:left_img_src="@drawable/me_message"
+            app:left_img_src="@drawable/me_message3x"
             app:left_text="通知"
             app:right_img_src="@drawable/icon_next" />
 
@@ -62,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             app:is_divider_visibility="true"
-            app:left_img_src="@drawable/me_setting"
+            app:left_img_src="@drawable/me_setting3x"
             app:left_text="设置"
             app:right_img_src="@drawable/icon_next" />
     </LinearLayout>

@@ -114,7 +114,7 @@ public class HtmlMessageForLocal {
             public void run() {
                 Log.e(TAG, "loginSuccess");
                 CookieManager cookieManager = CookieManager.getInstance();
-                String CookieStr = cookieManager.getCookie(Constants.urlHost);
+                String CookieStr = cookieManager.getCookie(Constants.urlHostBase);
                 //获取Cookie帮助类
                 CookieUtil cookieUtil = new CookieUtil();
                 String name = cookieUtil.GetCookieParamInt(CookieStr, "realName");

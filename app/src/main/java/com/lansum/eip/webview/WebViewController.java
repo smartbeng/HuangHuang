@@ -100,6 +100,9 @@ public class WebViewController extends WebView {
 
         this.addJavascriptInterface(newWebViewActivity,"android");
 
+        /**
+         * 让网页的弹框转化为原生化的弹框
+         */
         MyWebViewClient client = new MyWebViewClient(context){
             @Override
             public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
