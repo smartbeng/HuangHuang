@@ -1,11 +1,16 @@
 package com.lansum.eip;
 
+import android.app.Activity;
 import android.app.Application;
+import android.os.Bundle;
 import android.util.Log;
 
+import com.lansum.eip.util.ActivityCollector;
 import com.lansum.eip.util.AppHolder;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
+
+import static anet.channel.util.Utils.context;
 
 /**
  * Created by Administrator on 2017/2/21.
@@ -26,6 +31,8 @@ public class CoreApplication extends Application {
         //声明推送类
         PushAgent mPushAgent = PushAgent.getInstance(this);
         mPushAgent.setDebugMode(false);
+        //友盟统计应用启动数据
+        PushAgent.getInstance(context).onAppStart();
         //注册推送服务，每次调用register方法都会回调该接口
         mPushAgent.register(new IUmengRegisterCallback() {
 
@@ -38,6 +45,47 @@ public class CoreApplication extends Application {
             @Override
             public void onFailure(String s, String s1) {  //注册失败
                 Log.e(TAG, "注册失败:" + s+ "失败了" +s1);
+            }
+        });
+
+        /**
+         * Activity 声明周期回调
+         */
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+                ActivityCollector.addActivity(activity);
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+
+            }
+
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                ActivityCollector.removeActivity(activity);
             }
         });
 

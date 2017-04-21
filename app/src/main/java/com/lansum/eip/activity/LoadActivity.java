@@ -18,13 +18,13 @@ public class LoadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_load);
 
         /**
-         * 开启线程让欢迎页面休眠3秒后再跳转
+         * 开启线程让欢迎页面休眠1秒后再跳转
          */
         new Thread(){
             @Override
             public void run() {
                 try {
-                    sleep(3000);
+                    sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

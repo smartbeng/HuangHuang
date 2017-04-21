@@ -20,14 +20,14 @@ import java.io.File;
  * Created by MaiBenBen on 2017/4/14.
  */
 
-public class MyWebViewClient extends WebChromeClient {
+public class MyWebChromeClient extends WebChromeClient {
     public static final int FILECHOOSER_RESULTCODE =1212;
     private String mCameraFilePath;
     private ValueCallback<Uri> mUploadMessage;
     Activity act;
     WebView webview;
 
-    public MyWebViewClient(Context act){
+    public MyWebChromeClient(Context act){
 
         this.act=(Activity) act;
 //		webview=(WebView)act.findViewById(R.id.webView);
@@ -36,23 +36,6 @@ public class MyWebViewClient extends WebChromeClient {
 
     // 一个回调接口使用的主机应用程序通知当前页面的自定义视图已被撤职
     CustomViewCallback customViewCallback;
-    // 进入全屏的时候
-    @Override
-    public void onShowCustomView(View view, CustomViewCallback callback) {
-        // 赋值给callback
-        customViewCallback = callback;
-        // 设置webView隐藏
-        webview.setVisibility(View.GONE);
-        // 声明video，把之后的视频放到这里面去
-//        FrameLayout video = (FrameLayout) act.findViewById(R.id.video_view);
-        // 将video放到当前视图中
-//        video.addView(view);
-//        video.setVisibility(View.VISIBLE);
-        // 横屏显示
-        act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        // 设置全屏
-        setFullScreen();
-    }
 
     //配置权限（同样在WebChromeClient中实现）
     @Override
@@ -61,44 +44,8 @@ public class MyWebViewClient extends WebChromeClient {
         callback.invoke(origin, true, false);
         super.onGeolocationPermissionsShowPrompt(origin, callback);
     }
-    // 退出全屏的时候
-    @Override
-    public void onHideCustomView() {
-        if (customViewCallback != null) {
-            // 隐藏掉
-            customViewCallback.onCustomViewHidden();
-        }
-        // 用户当前的首选方向
-        act.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER);
-        // 退出全屏
-        quitFullScreen();
 
-        // 设置WebView可见
-        webview.setVisibility(View.VISIBLE);
 
-    }
-
-    /**
-     * 设置全屏
-     */
-    private void setFullScreen() {
-        // 设置全屏的相关属性，获取当前的屏幕状态，然后设置全屏
-        act. getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // 全屏下的状态码：1098974464
-        // 窗口下的状态吗：1098973440
-    }
-
-    /**
-     * 退出全屏
-     */
-    private void quitFullScreen() {
-        // 声明当前屏幕状态的参数并获取
-        final WindowManager.LayoutParams attrs = act.getWindow().getAttributes();
-        attrs.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        act.getWindow().setAttributes(attrs);
-        act.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-    }
 
     @Override
     public void onProgressChanged(WebView view, int newProgress) {

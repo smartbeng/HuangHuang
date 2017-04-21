@@ -1,18 +1,18 @@
 package com.lansum.eip.activity.homefragment;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
 
 import com.lansum.eip.R;
-import com.lansum.eip.activity.BaseActivity;
 import com.lansum.eip.http.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UserDataActivity extends BaseActivity {
+public class UserDataActivity extends AppCompatActivity {
 
     @BindView(R.id.user_data_toolbar)
     Toolbar userDataToolbar;

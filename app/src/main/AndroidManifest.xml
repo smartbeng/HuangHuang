@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:name=".CoreApplication"
@@ -40,7 +41,8 @@
         <activity android:name=".activity.homefragment.UserSettings" />
         <activity android:name=".activity.homefragment.usersettings.ChangePwdActivity" />
         <activity android:name=".activity.homefragment.usersettings.AboutActivity" />
-        <activity android:name=".activity.homefragment.usersettings.SeekBarActivity"></activity>
+        <activity android:name=".activity.homefragment.usersettings.SeekBarActivity" />
+        <activity android:name=".activity.NewWebViewActivity"></activity>
     </application>
 
 </manifest>

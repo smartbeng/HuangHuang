@@ -8,6 +8,7 @@ import com.lansum.eip.R;
 import com.lansum.eip.http.Constants;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class KaoQinActivity extends AppCompatActivity {
 
@@ -18,7 +19,10 @@ public class KaoQinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kao_qin);
-
+        ButterKnife.bind(this);
+        if (kaoQinWeb==null){
+            return;
+        }
         kaoQinWeb.loadUrl(Constants.urlHostBase + Constants.urlAttendance);
     }
 }

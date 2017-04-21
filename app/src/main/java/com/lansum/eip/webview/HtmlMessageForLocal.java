@@ -7,10 +7,12 @@ import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
-import com.lansum.eip.activity.BaseActivity;
+import com.google.gson.Gson;
 import com.lansum.eip.activity.LoginActivity;
 import com.lansum.eip.activity.MainActivity;
 import com.lansum.eip.http.Constants;
+import com.lansum.eip.model.RightInfo;
+import com.lansum.eip.util.ActivityCollector;
 import com.lansum.eip.util.CookieUtil;
 import com.litesuits.common.data.DataKeeper;
 import com.taobao.agoo.ICallback;
@@ -25,10 +27,7 @@ import com.umeng.message.UTrack;
  * Created by shiYunPeng on 2017/4/14.
  */
 
-public class HtmlMessageForLocal {
-
-    private BaseActivity baseActivity;
-
+public class HtmlMessageForLocal{
 
     //网页根据点击的WebView反馈的接口名
     private static final String TAG = "MehtodName";
@@ -42,13 +41,12 @@ public class HtmlMessageForLocal {
 
         if (methodName.equals("setPasswordFromJS")) {
 
-            DataKeeper dataKeeper = new DataKeeper(LoginActivity.loginActivity,"HH");
+            DataKeeper dataKeeper = new DataKeeper(ActivityCollector.getTopActivity(),"HH");
             dataKeeper.put("UserPwd",data);
 
         } else if (methodName.equals("loginSuccessFromJS")) {  // 登录成功
             //打开登陆页面 并获取cookie
             loginSuccessFromJS();
-
             // 打开新窗口
         } /*else if (methodName.equals("openAttendanceFromJS")) {
             openAttendanceFromJS(data);
@@ -59,10 +57,13 @@ public class HtmlMessageForLocal {
         } else if (methodName.equals("pushViewControllerFromJS")) {
             pushViewControllerFromJS(data);
             // 添加右上角按钮
-        } else if (methodName.equals("addRightBarButtonItemFromJS")) {
+        } */
+        else if (methodName.equals("addRightBarButtonItemFromJS")) {
             addRightBarButtonItemFromJS(data);
             // 从下往上弹出
-        } else if (methodName.equals("presentViewControllerFromJS")) {
+        }
+        /*
+        else if (methodName.equals("presentViewControllerFromJS")) {
             presentViewControllerFromJS(data);
             // 添加左上角按钮
         } else if (methodName.equals("addLeftBarButtonItemFromJS")) {
@@ -108,7 +109,7 @@ public class HtmlMessageForLocal {
          * getFilesDir()方法用于获取/data/data/<application package>/files目录
          * getAbsolutePath()：返回抽象路径名的绝对路径名字符串。
          */
-        filePath = LoginActivity.loginActivity.getApplicationContext().getFilesDir().getAbsolutePath();
+        filePath = ActivityCollector.getTopActivity().getApplicationContext().getFilesDir().getAbsolutePath();
         mHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -125,33 +126,49 @@ public class HtmlMessageForLocal {
                 String userVers = cookieUtil.GetCookieParamInt(CookieStr, "userVers");
 
                 // 保存字段
-                DataKeeper dataKeeper = new DataKeeper(LoginActivity.loginActivity.getApplicationContext(),"HH");
+                DataKeeper dataKeeper = new DataKeeper(ActivityCollector.getTopActivity().getApplicationContext(),"HH");
                 dataKeeper.put("UserId",UserId);
                 dataKeeper.put("UserVers",userVers);
                 dataKeeper.put("name",name);
                 dataKeeper.put("JobName",jobName);
                 final String pwd = dataKeeper.get("UserPwd","");
-                LoginActivity.loginActivity.getResources();
+                //友盟推送
+                PushAgent mPushAgent =  PushAgent.getInstance(ActivityCollector.getTopActivity());
 
-                baseActivity.mPushAgent.addExclusiveAlias(UserId, "HuangHuang", new UTrack.ICallBack() {
+                mPushAgent.addExclusiveAlias(UserId, "HuangHuang", new UTrack.ICallBack() {
                     @Override
                     public void onMessage(boolean b, String s) {
-                        Toast.makeText(baseActivity, "............", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityCollector.getTopActivity(), "............", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
-        Intent intent = new Intent(LoginActivity.loginActivity, MainActivity.class);
+        Intent intent = new Intent(ActivityCollector.getTopActivity(), MainActivity.class);
         intent.putExtra("pull", true);
         intent.putExtra("splashEnable", 1);
-        LoginActivity.loginActivity.startActivity(intent);
-        LoginActivity.loginActivity.finish();
+        ActivityCollector.getTopActivity().startActivity(intent);
+        ActivityCollector.getTopActivity().finish();
     }
 
     /**
-     * 打开新窗口
-     * @param url
+     * 添加右上角按钮
+     * @param
      */
+    private void addRightBarButtonItemFromJS(String data){
+        Gson gson = new Gson();
+        RightInfo rightInfo = gson.fromJson(data, RightInfo.class);
+        if(!rightInfo.image.equals("")){
+            ActivityCollector.getTopActivity().getResources();
+            int imageId = ActivityCollector.getTopActivity().getResources().getIdentifier(rightInfo.image.toLowerCase(), "drawable",
+                    ActivityCollector.getTopActivity().getPackageName());
+            if (imageId == 0){
+                Log.e(TAG, "*************rightInfo.image*****找不到" );
+            }else{
+                Log.e(TAG, "*************rightInfo.image*****找到了" );
+            }
+        }
+    }
+
 
 
 

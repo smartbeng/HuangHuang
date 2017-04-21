@@ -3,26 +3,41 @@ package com.lansum.eip.webview;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.JsResult;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.bumptech.glide.Glide;
+import com.lansum.eip.R;
+import com.lansum.eip.activity.NewWebViewActivity;
+import com.lansum.eip.activity.mainfragment.DoorActivity;
+import com.lansum.eip.util.ActivityCollector;
+import com.lansum.eip.util.ToastStudio;
 
 
 /**
  * Created by MaiBenBen on 2017/4/14.
  */
 
-public class WebViewController extends WebView {
+public class WebViewController extends WebView{
     private Context context;
 
     private WebViewController control;
+    //网络未加载完的loading图片
+    private ImageView imageView;
 
     public WebViewController(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -103,7 +118,7 @@ public class WebViewController extends WebView {
         /**
          * 让网页的弹框转化为原生化的弹框
          */
-        MyWebViewClient client = new MyWebViewClient(context){
+        MyWebChromeClient client = new MyWebChromeClient(context){
             @Override
             public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
                 //
@@ -114,7 +129,6 @@ public class WebViewController extends WebView {
                                 result.confirm();
                             }
                         });
-
                 builder.setCancelable(false);
                 builder.create();
                 builder.show();
@@ -126,7 +140,7 @@ public class WebViewController extends WebView {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // 这些页面添加顶部导航
                 if (url != null) {
-                   /* Intent intent = new Intent(context, NewWebViewActivity.class);
+                    /*Intent intent = new Intent(context, NewWebViewActivity.class);
                     intent.putExtra("url", url);
                     context.startActivity(intent);*/
                 } else {
@@ -141,9 +155,14 @@ public class WebViewController extends WebView {
 
             }
 
+            /**
+             * webview加载完成
+             * @param view
+             * @param url
+             */
             @Override
             public void onPageFinished(WebView view, String url) {
-
+                imageView.setVisibility(View.GONE);
             }
 
             @Override
@@ -151,8 +170,14 @@ public class WebViewController extends WebView {
                 // TODO Auto-generated method stub
                 super.onPageStarted(view, url, favicon);
                 control.setTag("");
-                //WebViewManage.addWebview("");
+                imageView = new ImageView(ActivityCollector.getTopActivity().getApplicationContext());
+                ViewGroup.LayoutParams size = new ViewGroup.LayoutParams(100,100);
+                imageView.setLayoutParams(size);
+                Glide.with(ActivityCollector.getTopActivity()).load(R.drawable.loading3).into(imageView);
+                ViewGroup parentLayout =(ViewGroup)WebViewController.this.getParent();
+                parentLayout.addView(imageView);
             }
+
         });
     }
 

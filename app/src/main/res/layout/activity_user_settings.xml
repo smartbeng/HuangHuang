@@ -79,12 +79,11 @@
         app:right_img_src="@drawable/icon_next"
         android:layout_below="@+id/item_cache"/>
     <Button
+        android:background="@android:color/white"
         android:id="@+id/exit_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="退出登录"
         android:textColor="@android:color/holo_red_dark"
-        android:background="@android:color/white"
         android:layout_below="@+id/item_about"/>
-
 </RelativeLayout>
