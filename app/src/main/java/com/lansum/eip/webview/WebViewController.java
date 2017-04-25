@@ -1,18 +1,22 @@
 package com.lansum.eip.webview;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Build;
 
+import android.os.RecoverySystem;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JsResult;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -24,24 +28,29 @@ import com.bumptech.glide.Glide;
 import com.lansum.eip.R;
 import com.lansum.eip.activity.NewWebViewActivity;
 import com.lansum.eip.activity.mainfragment.DoorActivity;
+import com.lansum.eip.http.Constants;
 import com.lansum.eip.util.ActivityCollector;
 import com.lansum.eip.util.ToastStudio;
+
+import anetwork.channel.NetworkCallBack;
 
 
 /**
  * Created by MaiBenBen on 2017/4/14.
  */
 
-public class WebViewController extends WebView{
+public class WebViewController extends WebView {
     private Context context;
+
 
     private WebViewController control;
     //网络未加载完的loading图片
     private ImageView imageView;
 
+
     public WebViewController(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context =  context;
+        this.context = context;
         webviewSettings();
     }
 
@@ -66,6 +75,7 @@ public class WebViewController extends WebView{
         super(context);
         webviewSettings();
     }
+
     @SuppressLint("JavascriptInterface")
     private void webviewSettings() {
 
@@ -103,9 +113,8 @@ public class WebViewController extends WebView{
         } else {
             webSettings.setLoadsImagesAutomatically(false);
         }
-
+        /**禁止屏幕自动旋转*/
         this.setScrollBarStyle(this.SCROLLBARS_INSIDE_OVERLAY);
-
         this.setHorizontalScrollBarEnabled(false);
         this.setHorizontalFadingEdgeEnabled(false);
         this.setVerticalFadingEdgeEnabled(false);
@@ -113,17 +122,19 @@ public class WebViewController extends WebView{
 
         HtmlMessageForLocal newWebViewActivity = new HtmlMessageForLocal();
 
-        this.addJavascriptInterface(newWebViewActivity,"android");
+        this.addJavascriptInterface(newWebViewActivity, "android");
 
         /**
          * 让网页的弹框转化为原生化的弹框
          */
-        MyWebChromeClient client = new MyWebChromeClient(context){
+        setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
                 //
-                AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("标题").setMessage(message)
-                        .setPositiveButton("ok", new AlertDialog.OnClickListener() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("登陆提醒")
+                        .setMessage(message)
+                        .setIcon(R.drawable.icon_login)
+                        .setPositiveButton("好", new AlertDialog.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 result.confirm();
@@ -134,25 +145,52 @@ public class WebViewController extends WebView{
                 builder.show();
                 return true;
             }
-        };
-        setWebChromeClient(client);
+
+        });
         setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // 这些页面添加顶部导航
-                if (url != null) {
-                    /*Intent intent = new Intent(context, NewWebViewActivity.class);
+                if (url != null && !url.matches(".*"+ Constants.urlLogIn+".*")) {
+                    Intent intent = new Intent(context, NewWebViewActivity.class);
                     intent.putExtra("url", url);
-                    context.startActivity(intent);*/
+                    intent.putExtra("animation",R.anim.slide_right_out);
+                    ((Activity)context).overridePendingTransition(R.anim.slide_right_in, R.anim.none);
+                    context.startActivity(intent);
+                    return true;
                 } else {
                     return false;
                 }
-                return false;
 
             }
 
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
 
+            }
+
+            /**
+             * WebView开始加载
+             * @param view
+             * @param url
+             * @param favicon
+             */
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                // TODO Auto-generated method stub
+                super.onPageStarted(view, url, favicon);
+                control.setTag("");
+
+                /**
+                 * 动态创建网络加载中的GIf图片
+                 */
+                imageView = new ImageView(ActivityCollector.getTopActivity().getApplicationContext());
+                ViewGroup.LayoutParams size = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100);
+                imageView.setLayoutParams(size);
+                Glide.with(ActivityCollector.getTopActivity()).load(R.drawable.loading3).into(imageView);
+                ViewGroup parentLayout = (ViewGroup) WebViewController.this.getParent();
+                parentLayout.addView(imageView);
+                parentLayout.getPaddingRight();
+                imageView.setVisibility(View.VISIBLE);
             }
 
             /**
@@ -164,23 +202,9 @@ public class WebViewController extends WebView{
             public void onPageFinished(WebView view, String url) {
                 imageView.setVisibility(View.GONE);
             }
-
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                // TODO Auto-generated method stub
-                super.onPageStarted(view, url, favicon);
-                control.setTag("");
-                imageView = new ImageView(ActivityCollector.getTopActivity().getApplicationContext());
-                ViewGroup.LayoutParams size = new ViewGroup.LayoutParams(100,100);
-                imageView.setLayoutParams(size);
-                Glide.with(ActivityCollector.getTopActivity()).load(R.drawable.loading3).into(imageView);
-                ViewGroup parentLayout =(ViewGroup)WebViewController.this.getParent();
-                parentLayout.addView(imageView);
-            }
-
         });
-    }
 
+    }
 
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {

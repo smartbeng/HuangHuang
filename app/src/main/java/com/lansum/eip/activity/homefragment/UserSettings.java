@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.lansum.eip.BaseActivity;
 import com.lansum.eip.R;
 import com.lansum.eip.activity.LoginActivity;
 import com.lansum.eip.activity.homefragment.usersettings.AboutActivity;
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ch.ielse.view.SwitchView;
 
-public class UserSettings extends AppCompatActivity {
+public class UserSettings extends BaseActivity {
 
     @BindView(R.id.user_settings_toolbar)
     Toolbar setttingToolbar;

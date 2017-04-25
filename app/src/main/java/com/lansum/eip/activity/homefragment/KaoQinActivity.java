@@ -4,13 +4,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
+import com.lansum.eip.BaseActivity;
 import com.lansum.eip.R;
 import com.lansum.eip.http.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class KaoQinActivity extends AppCompatActivity {
+public class KaoQinActivity extends BaseActivity {
 
     @BindView(R.id.user_kaoqin_web)
     WebView kaoQinWeb;

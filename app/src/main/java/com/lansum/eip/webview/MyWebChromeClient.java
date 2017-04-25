@@ -2,19 +2,26 @@ package com.lansum.eip.webview;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.GeolocationPermissions;
+import android.webkit.JavascriptInterface;
+import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 
 import java.io.File;
+
+import static anet.channel.util.Utils.context;
 
 /**
  * Created by MaiBenBen on 2017/4/14.
@@ -28,14 +35,29 @@ public class MyWebChromeClient extends WebChromeClient {
     WebView webview;
 
     public MyWebChromeClient(Context act){
-
-        this.act=(Activity) act;
-//		webview=(WebView)act.findViewById(R.id.webView);
+        this.act=(AppCompatActivity) act;
     }
 
 
     // 一个回调接口使用的主机应用程序通知当前页面的自定义视图已被撤职
     CustomViewCallback customViewCallback;
+
+    /*@Override
+    public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+        //
+        AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("标题").setMessage(message)
+                .setPositiveButton("ok", new AlertDialog.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        result.confirm();
+                    }
+                });
+        builder.setCancelable(false);
+        builder.create();
+        builder.show();
+        return true;
+    }*/
+
 
     //配置权限（同样在WebChromeClient中实现）
     @Override
@@ -52,6 +74,11 @@ public class MyWebChromeClient extends WebChromeClient {
         super.onProgressChanged(view, newProgress);
     }
 
+    /**
+     * 选择文件系列
+     * @param uploadMsg
+     * @param acceptType
+     */
     // For Android 3.0+
     public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
         myopenFileChooser(uploadMsg, acceptType);

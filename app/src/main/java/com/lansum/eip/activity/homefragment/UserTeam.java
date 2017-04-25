@@ -6,13 +6,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.lansum.eip.BaseActivity;
 import com.lansum.eip.R;
 import com.lansum.eip.http.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UserTeam extends AppCompatActivity {
+public class UserTeam extends BaseActivity {
 
     @BindView(R.id.user_team_toolbar)
     Toolbar teamToolbar;
@@ -27,7 +28,7 @@ public class UserTeam extends AppCompatActivity {
 
         ButterKnife.bind(this);
         // 设置 toolbar 显示的标题
-        teamToolbar.setTitle("通知");
+        teamToolbar.setTitle("团队");
         // 添加返回的箭头
         teamToolbar.setNavigationIcon(R.drawable.fanhui);
         // 让toolbar继承actionBar的属性

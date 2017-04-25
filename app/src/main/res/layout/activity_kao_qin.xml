@@ -9,7 +9,34 @@
     <com.lansum.eip.webview.WebViewController
         android:id="@+id/user_kaoqin_web"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_toolbar_kaoqin">
     </com.lansum.eip.webview.WebViewController>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/top_toolbar_kaoqin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:id="@+id/topText"
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="18dp"
+        android:layout_margin="@dimen/activity_horizontal_margin" />
+    <ImageView
+        android:id="@+id/right_Button"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="18dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:src="@drawable/navbar_add"/>
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.lansum.eip.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,11 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lansum.eip.R;
+import com.lansum.eip.activity.NewWebViewActivity;
 import com.lansum.eip.activity.homefragment.KaoQinActivity;
 import com.lansum.eip.activity.homefragment.UserSettings;
 import com.lansum.eip.activity.homefragment.UserTeam;
 import com.lansum.eip.activity.homefragment.UserDataActivity;
 import com.lansum.eip.activity.mainfragment.NoticeActivity;
+import com.lansum.eip.http.Constants;
 import com.lansum.eip.view.CommItemView;
 
 /**
@@ -59,7 +62,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), UserDataActivity.class));
                 break;
             case R.id.item_kaoqin: //用户考勤
-                startActivity(new Intent(getActivity(), KaoQinActivity.class));
+                Intent intent = new Intent(getActivity(), NewWebViewActivity.class);
+                intent.putExtra("url", Constants.urlHostBase + Constants.urlAttendance);
+                intent.putExtra("animation",R.anim.slide_right_out);
+                getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.none);
+                startActivity(intent);
+/*                startActivity(new Intent(getActivity(), KaoQinActivity.class));*/
                 break;
             case R.id.item_team:   //用户团队
                 startActivity(new Intent(getActivity(), UserTeam.class));

@@ -6,13 +6,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
 
+import com.lansum.eip.BaseActivity;
 import com.lansum.eip.R;
 import com.lansum.eip.http.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ChangePwdActivity extends AppCompatActivity {
+public class ChangePwdActivity extends BaseActivity {
 
     @BindView(R.id.change_pwd__toolbar)
     Toolbar changePwdToolbar;

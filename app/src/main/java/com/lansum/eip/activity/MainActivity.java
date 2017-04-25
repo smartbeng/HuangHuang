@@ -16,7 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.lansum.eip.BaseActivity;
 import com.lansum.eip.R;
 import com.lansum.eip.fragment.HomeFragment;
 import com.lansum.eip.fragment.MainFragment;
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     //ViewPager滑动
     @BindView(R.id.vp_container)
     ViewPager mViewPager;
+
+    //加号请假按钮
+    private ImageView mImageView;
 
     //Menu菜单
     private Menu mMenu;
