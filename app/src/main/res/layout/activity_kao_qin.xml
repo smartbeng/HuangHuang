@@ -16,7 +16,7 @@
         android:id="@+id/top_toolbar_kaoqin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:background="@color/cardview_dark_background">
     </android.support.v7.widget.Toolbar>
     <TextView
         android:id="@+id/topText"
@@ -29,14 +29,13 @@
         android:layout_margin="@dimen/activity_horizontal_margin" />
     <ImageView
         android:id="@+id/right_Button"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
         android:textColor="@android:color/white"
         android:textSize="18dp"
         android:layout_alignParentRight="true"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:src="@drawable/navbar_add"/>
+        android:layout_margin="@dimen/activity_horizontal_margin" />
 
 </RelativeLayout>

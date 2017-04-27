@@ -2,8 +2,11 @@ package com.lansum.eip;
 
 import android.app.Activity;
 import android.app.Application;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.lansum.eip.util.ActivityCollector;
 import com.lansum.eip.util.AppHolder;

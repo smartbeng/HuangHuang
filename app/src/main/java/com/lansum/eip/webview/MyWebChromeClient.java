@@ -55,7 +55,7 @@ public class MyWebChromeClient extends WebChromeClient {
         builder.setCancelable(false);
         builder.create();
         builder.show();
-        return true;
+        returns true;
     }*/
 
 
@@ -111,7 +111,7 @@ public class MyWebChromeClient extends WebChromeClient {
             return;
         }
         if(requestCode==FILECHOOSER_RESULTCODE) {
-            // if (null == mUploadMessage) return;
+            // if (null == mUploadMessage) returns;
             Uri result = data == null || resultCode !=act. RESULT_OK ? null
                     : data.getData();
             if (result == null && data == null && resultCode == Activity.RESULT_OK) {
@@ -134,7 +134,7 @@ public class MyWebChromeClient extends WebChromeClient {
     }
 
     private Intent createDefaultOpenableIntent() {
-        // Create and return a chooser with the default OPENABLE
+        // Create and returns a chooser with the default OPENABLE
         // actions including the camera, camcorder and sound
         // recorder where available.
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);

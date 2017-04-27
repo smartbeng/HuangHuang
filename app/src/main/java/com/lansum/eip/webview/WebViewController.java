@@ -44,6 +44,7 @@ public class WebViewController extends WebView {
 
 
     private WebViewController control;
+
     //网络未加载完的loading图片
     private ImageView imageView;
 
@@ -131,7 +132,7 @@ public class WebViewController extends WebView {
             @Override
             public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
                 //
-                AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("登陆提醒")
+                AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("错误提醒")
                         .setMessage(message)
                         .setIcon(R.drawable.icon_login)
                         .setPositiveButton("好", new AlertDialog.OnClickListener() {
@@ -154,8 +155,8 @@ public class WebViewController extends WebView {
                     Intent intent = new Intent(context, NewWebViewActivity.class);
                     intent.putExtra("url", url);
                     intent.putExtra("animation",R.anim.slide_right_out);
-                    ((Activity)context).overridePendingTransition(R.anim.slide_right_in, R.anim.none);
                     context.startActivity(intent);
+                    //((Activity)context).overridePendingTransition(R.anim.slide_right_in, R.anim.none);
                     return true;
                 } else {
                     return false;
@@ -184,7 +185,7 @@ public class WebViewController extends WebView {
                  * 动态创建网络加载中的GIf图片
                  */
                 imageView = new ImageView(ActivityCollector.getTopActivity().getApplicationContext());
-                ViewGroup.LayoutParams size = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100);
+                ViewGroup.LayoutParams size = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 80);
                 imageView.setLayoutParams(size);
                 Glide.with(ActivityCollector.getTopActivity()).load(R.drawable.loading3).into(imageView);
                 ViewGroup parentLayout = (ViewGroup) WebViewController.this.getParent();

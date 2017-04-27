@@ -1,5 +1,6 @@
 package com.lansum.eip.webview;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,9 @@ import com.litesuits.common.data.DataKeeper;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UTrack;
 
+import static com.lansum.eip.R.id.back_web;
 import static com.lansum.eip.R.id.image;
+import static com.lansum.eip.R.id.title;
 
 /**
  * 本地与WebView交互类
@@ -48,10 +51,8 @@ public class HtmlMessageForLocal {
         Log.e(TAG, "Method:" + methodName);
 
         if (methodName.equals("setPasswordFromJS")) {
-
             DataKeeper dataKeeper = new DataKeeper(ActivityCollector.getTopActivity(), "HH");
             dataKeeper.put("UserPwd", data);
-
         } else if (methodName.equals("loginSuccessFromJS")) {  // 登录成功
             //打开登陆页面 并获取cookie
             loginSuccessFromJS();
@@ -65,15 +66,13 @@ public class HtmlMessageForLocal {
         } else if (methodName.equals("pushViewControllerFromJS")) {
             pushViewControllerFromJS(data);
             // 添加右上角按钮
-        }  else if (methodName.equals("addRightBarButtonItemFromJS")) {
+        } else if (methodName.equals("addRightBarButtonItemFromJS")) {
             addRightBarButtonItemFromJS(data);
             // 从下往上弹出
-        }
-
-        else if (methodName.equals("presentViewControllerFromJS")) {
+        } else if (methodName.equals("presentViewControllerFromJS")) {
             presentViewControllerFromJS(data);
             // 添加左上角按钮
-        }/* else if (methodName.equals("addLeftBarButtonItemFromJS")) {
+        }else if (methodName.equals("addLeftBarButtonItemFromJS")) {
             addLeftBarButtonItemFromJS(data);
             // 关闭web
         } else if (methodName.equals("dismissViewControllerFromJS")) {
@@ -81,7 +80,7 @@ public class HtmlMessageForLocal {
             // 调用页面刷新
         } else if (methodName.equals("postNotificationFromJS")) {
             postNotificationFromJS(data);
-        } else if (methodName.equals("popViewControllerFromJS")) {
+        } /*else if (methodName.equals("popViewControllerFromJS")) {
             popViewControllerFromJS();
             *//**获取开门图片**//*
         } else if (methodName.equals("getOpenDoorImageFromJS")) {
@@ -111,6 +110,9 @@ public class HtmlMessageForLocal {
     String userCookieName = "UserInfo";
     public String filePath = "";
 
+    /**
+     * 打开登录页面 并获取 Cookie
+     */
     @JavascriptInterface
     private void loginSuccessFromJS() {
 
@@ -161,53 +163,96 @@ public class HtmlMessageForLocal {
     }
 
     /**
-     * 添加右上角按钮
-     *
-     * @param
+     * 添加左上角按钮
+     * @param data
      */
-    private ImageView topRight;
-
-    private void addRightBarButtonItemFromJS(String data) {
+    private void addLeftBarButtonItemFromJS(String data){
         Gson gson = new Gson();
         RightInfo rightInfo = gson.fromJson(data, RightInfo.class);
         if (!rightInfo.image.equals("")) {
             ActivityCollector.getTopActivity().getResources();
             int imageId = ActivityCollector.getTopActivity().getResources().getIdentifier(rightInfo.image.toLowerCase(), "drawable",
                     ActivityCollector.getTopActivity().getPackageName());
-            if (imageId == 0) {
-                Log.e(TAG, "*************rightInfo.image*****找不到");
-            } else {
-                Log.e(TAG, "*************rightInfo.image*****找到了");
-                ActivityCollector.getTopActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        topRight = (ImageView) ActivityCollector.getTopActivity().findViewById(R.id.right_Button);
-                        //设置右上角按钮
-                        topRight.setBackgroundResource(imageId);
-                        topRight.setVisibility(View.VISIBLE);
-                        topRight.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                WebView baseWebView = (WebView) ActivityCollector.getTopActivity().findViewById(R.id.base_web_view);
-                                baseWebView.loadUrl("javascript:" +rightInfo.funcName);
-                            }
-                        });
-                    }
-                });
-            }
-        }
+            Log.e(TAG, "*************rightInfo.image*****找到了");
+            ActivityCollector.getTopActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ImageView topLeftImage = (ImageView) ActivityCollector.getTopActivity().findViewById(R.id.back_web);
+                    //设置左上角图片按钮
+                    topLeftImage.setBackgroundResource(imageId);
+                    topLeftImage.setVisibility(View.VISIBLE);
+                    topLeftImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            WebView baseWebView = (WebView) ActivityCollector.getTopActivity().findViewById(R.id.base_web_view);
+                            baseWebView.loadUrl("javascript:" + rightInfo.funcName);
+                            //ActivityCollector.getTopActivity().overridePendingTransition(R.anim.push_bottom_in,R.anim.push_bottom_out);
 
+                        }
+                    });
+                }
+            });
+
+        }
     }
 
-    // 抬头
-    private TextView txtTop;
+    /**
+     * 添加右上角按钮
+     *
+     * @param
+     */
+    protected void addRightBarButtonItemFromJS(String data) {
+        Gson gson = new Gson();
+        RightInfo rightInfo = gson.fromJson(data, RightInfo.class);
+        if (!rightInfo.image.equals("")) {
+            ActivityCollector.getTopActivity().getResources();
+            int imageId = ActivityCollector.getTopActivity().getResources().getIdentifier(rightInfo.image.toLowerCase(), "drawable",
+                    ActivityCollector.getTopActivity().getPackageName());
+            Log.e(TAG, "*************rightInfo.image*****找到了");
+            ActivityCollector.getTopActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ImageView topRightImage = (ImageView) ActivityCollector.getTopActivity().findViewById(R.id.right_Button);
+                    //设置右上角图片按钮
+                    topRightImage.setBackgroundResource(imageId);
+                    topRightImage.setVisibility(View.VISIBLE);
+                    topRightImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            WebView baseWebView = (WebView) ActivityCollector.getTopActivity().findViewById(R.id.base_web_view);
+                            baseWebView.loadUrl("javascript:" + rightInfo.funcName);
+                            //ActivityCollector.getTopActivity().overridePendingTransition(R.anim.push_bottom_out, R.anim.push_bottom_in);
+                        }
+                    });
+                }
+            });
 
-    // 设置抬头
+        } else if (!rightInfo.title.equals("")) {
+            ActivityCollector.getTopActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    //设置右上角文字按钮(提交)right_Button_text
+                    TextView topRightText = (TextView) ActivityCollector.getTopActivity().findViewById(R.id.right_Button_text);
+                    topRightText.setText(rightInfo.title);
+                    topRightText.setVisibility(View.VISIBLE);
+                    topRightText.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            WebView baseWebView = (WebView) ActivityCollector.getTopActivity().findViewById(R.id.base_web_view);
+                            baseWebView.loadUrl("javascript:" + rightInfo.funcName);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    // 设置抬头（WebView中toolbar上的标题）
     protected void setTitleFromJS(final String title) {
         ActivityCollector.getTopActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                txtTop = (TextView) ActivityCollector.getTopActivity().findViewById(R.id.topText);
+                TextView txtTop = (TextView) ActivityCollector.getTopActivity().findViewById(R.id.toolbar_text_top);
                 // 设置顶部文字
                 if (title != null && txtTop != null) {
                     txtTop.setText(title);
@@ -216,27 +261,46 @@ public class HtmlMessageForLocal {
         });
     }
 
-    protected void pushViewControllerFromJS(String data){
+    protected void pushViewControllerFromJS(String data) {
         openAttendanceFromJS(data);
     }
 
+    /**
+     * 打开新窗口
+     * @param url
+     */
     protected void openAttendanceFromJS(String url) {
         Log.i("js", url);
         // TODO Auto-generated method stub
-        /*openNewWindow(url, false, false, 2, "");*/
         Intent intent = new Intent(ActivityCollector.getTopActivity(), NewWebViewActivity.class);
         intent.putExtra("url", url);
-        intent.putExtra("animation",R.anim.slide_right_out);
-        ActivityCollector.getTopActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.none);
+        intent.putExtra("animation", R.anim.slide_right_out);
+        intent.putExtra("animation", R.anim.slide_right_in);
         ActivityCollector.getTopActivity().startActivity(intent);
+        //ActivityCollector.getTopActivity().overridePendingTransition(R.anim.push_bottom_out, R.anim.push_bottom_in);
     }
 
-    protected void presentViewControllerFromJS(String data){
+    /**
+     * 调用js方法关闭网页
+     */
+    protected void dismissViewControllerFromJS(){
+        ActivityCollector.getTopActivity().finish();
+        ActivityCollector.getTopActivity().overridePendingTransition(R.anim.none, R.anim.push_bottom_out);
+    }
+
+    protected void postNotificationFromJS(String data){
+
+    }
+
+
+
+    protected void presentViewControllerFromJS(String data) {
         Intent intent = new Intent(ActivityCollector.getTopActivity(), NewWebViewActivity.class);
         intent.putExtra("url", data);
-        intent.putExtra("animation",R.anim.push_bottom_out);
-        ActivityCollector.getTopActivity().overridePendingTransition(R.anim.push_bottom_in, R.anim.none);
-        ActivityCollector.getTopActivity().startActivity(intent);
+        intent.putExtra("animation", R.anim.push_bottom_out);
+        Activity activity =  ActivityCollector.getTopActivity();
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.push_bottom_in, R.anim.none);
     }
 
 }

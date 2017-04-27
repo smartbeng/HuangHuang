@@ -65,8 +65,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 Intent intent = new Intent(getActivity(), NewWebViewActivity.class);
                 intent.putExtra("url", Constants.urlHostBase + Constants.urlAttendance);
                 intent.putExtra("animation",R.anim.slide_right_out);
-                getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.none);
                 startActivity(intent);
+                //从右往左进入
+                getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.none);
 /*                startActivity(new Intent(getActivity(), KaoQinActivity.class));*/
                 break;
             case R.id.item_team:   //用户团队
