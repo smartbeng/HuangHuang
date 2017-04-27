@@ -25,6 +25,7 @@ import com.lansum.eip.R;
 import com.lansum.eip.fragment.HomeFragment;
 import com.lansum.eip.fragment.MainFragment;
 import com.lansum.eip.fragment.QingJiaFragment;
+import com.lansum.eip.http.Constants;
 import com.lansum.eip.util.ActivityCollector;
 import com.lansum.eip.util.StatusBarUtil;
 import com.lansum.eip.util.ToastStudio;
@@ -81,25 +82,28 @@ public class MainActivity extends AppCompatActivity {
         //创建menu对象
         mMenu = new MenuBuilder(this);
         //将menu文件添加到menu对象
-        getMenuInflater().inflate(R.menu.tab_bottom,mMenu);
+        getMenuInflater().inflate(R.menu.tab_bottom, mMenu);
         //将适配器与viewpager进行关联
-        mViewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
+        MyAdapter adapter = new MyAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(adapter);
         //将TabLayout和ViewPager进行关联
         mTablayout.setupWithViewPager(mViewPager);
         for (int i = 0; i < mMenu.size(); i++) {
-            //循环获取每一个Tab对象
-            TabLayout.Tab tab = mTablayout.getTabAt(i);
-            //获取每一个menu中存储的数据
-            MenuItem item = mMenu.getItem(i);
-            //设置item显示的文本
-            tab.setText(item.getTitle());
-            tab.setIcon(item.getIcon());
+                //循环获取每一个Tab对象
+                TabLayout.Tab tab = mTablayout.getTabAt(i);
+                //获取每一个menu中存储的数据
+                MenuItem item = mMenu.getItem(i);
+                //设置item显示的文本
+                tab.setText(item.getTitle());
+                tab.setIcon(item.getIcon());
         }
+
 
     }
 
     /**
      * 再按一次退出
+     *
      * @param keyCode
      * @param event
      * @return
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             if (System.currentTimeMillis() - ExitTime > 2000) {
-                ToastStudio.showToast(this,"再按一次退出");
+                ToastStudio.showToast(this, "再按一次退出");
                 ExitTime = System.currentTimeMillis();
             } else {
                 finish();
@@ -129,11 +133,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position){
+            switch (position) {
                 case 0:
                     return new MainFragment();
                 case 1:
                     return new QingJiaFragment();
+
                 case 2:
                     return new HomeFragment();
             }

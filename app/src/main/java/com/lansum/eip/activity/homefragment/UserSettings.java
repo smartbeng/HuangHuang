@@ -3,19 +3,15 @@ package com.lansum.eip.activity.homefragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.lansum.eip.BaseActivity;
 import com.lansum.eip.R;
 import com.lansum.eip.activity.LoginActivity;
-import com.lansum.eip.activity.homefragment.usersettings.AboutActivity;
-import com.lansum.eip.activity.homefragment.usersettings.ChangePwdActivity;
-import com.lansum.eip.util.ActivityCollector;
-import com.lansum.eip.util.HelperSP;
+import com.lansum.eip.activity.NewWebViewActivity;
+import com.lansum.eip.http.Constants;
 import com.lansum.eip.util.ToastStudio;
 import com.lansum.eip.view.CommItemView;
 import com.litesuits.common.data.DataKeeper;
@@ -94,10 +90,20 @@ public class UserSettings extends BaseActivity {
     void onClick(View view){
         switch (view.getId()){
             case R.id.item_change_password:
-                startActivity(new Intent(UserSettings.this, ChangePwdActivity.class));
+                Intent intentPwd = new Intent(UserSettings.this, NewWebViewActivity.class);
+                intentPwd.putExtra("url", Constants.urlHostBase + Constants.urlChangePwd);
+                intentPwd.putExtra("animation",R.anim.slide_right_out);
+                startActivity(intentPwd);
+                //从右往左进入
+                overridePendingTransition(R.anim.slide_right_in, R.anim.none);
                 break;
             case R.id.item_about:
-                startActivity(new Intent(UserSettings.this, AboutActivity.class));
+                Intent intentAbout = new Intent(UserSettings.this, NewWebViewActivity.class);
+                intentAbout.putExtra("url", Constants.urlHostBase + Constants.urlAboutUS);
+                intentAbout.putExtra("animation",R.anim.slide_right_out);
+                startActivity(intentAbout);
+                //从右往左进入
+                overridePendingTransition(R.anim.slide_right_in, R.anim.none);
                 break;
             case R.id.exit_login:
                 Snackbar.make(view,"确定退出登录吗？",Snackbar.LENGTH_SHORT)

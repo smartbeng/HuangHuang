@@ -10,11 +10,7 @@ import android.view.ViewGroup;
 
 import com.lansum.eip.R;
 import com.lansum.eip.activity.NewWebViewActivity;
-import com.lansum.eip.activity.homefragment.KaoQinActivity;
 import com.lansum.eip.activity.homefragment.UserSettings;
-import com.lansum.eip.activity.homefragment.UserTeam;
-import com.lansum.eip.activity.homefragment.UserDataActivity;
-import com.lansum.eip.activity.mainfragment.NoticeActivity;
 import com.lansum.eip.http.Constants;
 import com.lansum.eip.view.CommItemView;
 
@@ -59,7 +55,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.item_data:   //用户资料
-                startActivity(new Intent(getActivity(), UserDataActivity.class));
+                Intent intentData = new Intent(getActivity(), NewWebViewActivity.class);
+                intentData.putExtra("url", Constants.urlHostBase + Constants.urlPersonal);
+                intentData.putExtra("animation",R.anim.slide_right_out);
+                startActivity(intentData);
+                //从右往左进入
+                getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.none);
                 break;
             case R.id.item_kaoqin: //用户考勤
                 Intent intent = new Intent(getActivity(), NewWebViewActivity.class);
@@ -68,13 +69,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 //从右往左进入
                 getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.none);
-/*                startActivity(new Intent(getActivity(), KaoQinActivity.class));*/
                 break;
             case R.id.item_team:   //用户团队
-                startActivity(new Intent(getActivity(), UserTeam.class));
+                Intent intentTeam = new Intent(getActivity(), NewWebViewActivity.class);
+                intentTeam.putExtra("url", Constants.urlHostBase + Constants.urlTeam);
+                intentTeam.putExtra("animation",R.anim.slide_right_out);
+                startActivity(intentTeam);
+                //从右往左进入
+                getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.none);
                 break;
             case R.id.item_nation: //系统通知
-                startActivity(new Intent(getActivity(), NoticeActivity.class));
+                Intent intentNation = new Intent(getActivity(), NewWebViewActivity.class);
+                intentNation.putExtra("url", Constants.urlHostBase + Constants.urlSysmessage);
+                intentNation.putExtra("animation",R.anim.slide_right_out);
+                startActivity(intentNation);
+                //从右往左进入
+                getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.none);
                 break;
             case R.id.item_setting://用户设置
                 startActivity(new Intent(getActivity(), UserSettings.class));

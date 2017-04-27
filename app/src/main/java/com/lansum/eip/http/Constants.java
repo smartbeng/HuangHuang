@@ -16,8 +16,8 @@ public class Constants {
     public static String urlIndex = "index.html?navbarstyle=0&&WebViewRefreshNotification=attendance";
     //手动开门
     public static String urlOpen = "open.html";
+    //用户资料
     public static String urlPersonal = "personal.html?navbarstyle=1";
-
     //考勤
     public static String urlAttendance = "attendance.html?navbarstyle=1&&WebViewRefreshNotification=attendance&&all=1";
     //团队

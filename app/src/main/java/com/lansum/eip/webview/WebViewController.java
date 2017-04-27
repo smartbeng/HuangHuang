@@ -2,9 +2,11 @@ package com.lansum.eip.webview;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -47,6 +49,7 @@ public class WebViewController extends WebView {
 
     //网络未加载完的loading图片
     private ImageView imageView;
+    private String sss = "";
 
 
     public WebViewController(Context context, AttributeSet attrs) {
@@ -123,6 +126,7 @@ public class WebViewController extends WebView {
 
         HtmlMessageForLocal newWebViewActivity = new HtmlMessageForLocal();
 
+
         this.addJavascriptInterface(newWebViewActivity, "android");
 
         /**
@@ -180,6 +184,32 @@ public class WebViewController extends WebView {
                 // TODO Auto-generated method stub
                 super.onPageStarted(view, url, favicon);
                 control.setTag("");
+
+                int hhh = url.indexOf("WebViewRefreshNotification=");
+                if (hhh != -1){
+                    int xxx = hhh + 27;
+
+                    sss = url.substring(xxx);
+                    int ttt = sss.indexOf('&');
+                    if (ttt!= -1){
+
+                        sss = sss.substring(0,ttt);
+                    }
+                }
+
+                if (!sss.equals("")){
+                    IntentFilter intentFilter = new IntentFilter();
+                    intentFilter.addAction(sss);
+                    context.registerReceiver(new BroadcastReceiver() {
+                        @Override
+                        public void onReceive(Context context, Intent intent) {
+                            if (intent.getAction().equals(sss)) {
+                                String name = intent.getStringExtra("name");
+                                WebViewController.this.loadUrl("javascript:" + name);
+                            }
+                        }
+                    }, intentFilter);
+                }
 
                 /**
                  * 动态创建网络加载中的GIf图片

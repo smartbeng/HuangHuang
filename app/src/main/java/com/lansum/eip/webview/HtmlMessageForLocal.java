@@ -18,18 +18,14 @@ import com.google.gson.Gson;
 import com.lansum.eip.R;
 import com.lansum.eip.activity.MainActivity;
 import com.lansum.eip.activity.NewWebViewActivity;
-import com.lansum.eip.activity.homefragment.KaoQinActivity;
 import com.lansum.eip.http.Constants;
+import com.lansum.eip.model.ReFreshInfo;
 import com.lansum.eip.model.RightInfo;
 import com.lansum.eip.util.ActivityCollector;
 import com.lansum.eip.util.CookieUtil;
 import com.litesuits.common.data.DataKeeper;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UTrack;
-
-import static com.lansum.eip.R.id.back_web;
-import static com.lansum.eip.R.id.image;
-import static com.lansum.eip.R.id.title;
 
 /**
  * 本地与WebView交互类
@@ -54,32 +50,37 @@ public class HtmlMessageForLocal {
             DataKeeper dataKeeper = new DataKeeper(ActivityCollector.getTopActivity(), "HH");
             dataKeeper.put("UserPwd", data);
         } else if (methodName.equals("loginSuccessFromJS")) {  // 登录成功
-            //打开登陆页面 并获取cookie
-            loginSuccessFromJS();
-            // 打开新窗口
+
+            loginSuccessFromJS();            //打开登陆页面 并获取cookie
+
         } else if (methodName.equals("openAttendanceFromJS")) {
-            openAttendanceFromJS(data);
-            // 设置抬头
+
+            openAttendanceFromJS(data);      // 打开新窗口
+
         } else if (methodName.equals("setTitleFromJS")) {
-            setTitleFromJS(data);
-            // 从右往左推出页面
-        } else if (methodName.equals("pushViewControllerFromJS")) {
-            pushViewControllerFromJS(data);
-            // 添加右上角按钮
+
+            setTitleFromJS(data);             // 设置抬头
+
         } else if (methodName.equals("addRightBarButtonItemFromJS")) {
-            addRightBarButtonItemFromJS(data);
-            // 从下往上弹出
+
+            addRightBarButtonItemFromJS(data);// 添加右上角按钮
+
         } else if (methodName.equals("presentViewControllerFromJS")) {
-            presentViewControllerFromJS(data);
-            // 添加左上角按钮
+
+            presentViewControllerFromJS(data);// 从下往上弹出
+
         }else if (methodName.equals("addLeftBarButtonItemFromJS")) {
-            addLeftBarButtonItemFromJS(data);
-            // 关闭web
+
+            addLeftBarButtonItemFromJS(data); // 添加左上角按钮
+
         } else if (methodName.equals("dismissViewControllerFromJS")) {
-            dismissViewControllerFromJS();
-            // 调用页面刷新
+
+            dismissViewControllerFromJS();    // 关闭web
+
         } else if (methodName.equals("postNotificationFromJS")) {
-            postNotificationFromJS(data);
+
+            postNotificationFromJS(data);     // 调用页面刷新
+
         } /*else if (methodName.equals("popViewControllerFromJS")) {
             popViewControllerFromJS();
             *//**获取开门图片**//*
@@ -261,9 +262,9 @@ public class HtmlMessageForLocal {
         });
     }
 
-    protected void pushViewControllerFromJS(String data) {
+   /* protected void pushViewControllerFromJS(String data) {
         openAttendanceFromJS(data);
-    }
+    }*/
 
     /**
      * 打开新窗口
@@ -288,12 +289,26 @@ public class HtmlMessageForLocal {
         ActivityCollector.getTopActivity().overridePendingTransition(R.anim.none, R.anim.push_bottom_out);
     }
 
+    /**
+     * 调用页面刷新
+     * @param data
+     */
     protected void postNotificationFromJS(String data){
+        Gson gson = new Gson();
+        ReFreshInfo a = gson.fromJson(data,ReFreshInfo.class);
+        Intent intent = new Intent();
+        intent.setAction(a.notificationName);
+        intent.putExtra("name",a.funcName);
+        ActivityCollector.getTopActivity().sendBroadcast(intent);
 
+        Toast.makeText(ActivityCollector.getTopActivity().getApplicationContext(), "页面更新", Toast.LENGTH_SHORT).show();
+       // String notificationName = gson.get
     }
 
-
-
+    /**
+     * 从下往上弹出
+     * @param data
+     */
     protected void presentViewControllerFromJS(String data) {
         Intent intent = new Intent(ActivityCollector.getTopActivity(), NewWebViewActivity.class);
         intent.putExtra("url", data);

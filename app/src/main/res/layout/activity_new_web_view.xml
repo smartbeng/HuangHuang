@@ -4,7 +4,9 @@
     android:id="@+id/activity_new_web_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lansum.eip.activity.NewWebViewActivity">
+    tools:context="com.lansum.eip.activity.NewWebViewActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:theme="@android:style/Animation.Toast">
     <android.support.v7.widget.Toolbar
         android:background="@color/cardview_dark_background"
         android:id="@+id/web_top_toolbar"
