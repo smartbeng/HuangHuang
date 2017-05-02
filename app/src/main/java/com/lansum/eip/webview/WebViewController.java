@@ -15,6 +15,7 @@ import android.os.RecoverySystem;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JsResult;
@@ -25,6 +26,7 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.lansum.eip.R;
@@ -33,24 +35,30 @@ import com.lansum.eip.activity.mainfragment.DoorActivity;
 import com.lansum.eip.http.Constants;
 import com.lansum.eip.util.ActivityCollector;
 import com.lansum.eip.util.ToastStudio;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import anetwork.channel.NetworkCallBack;
-
 
 /**
  * Created by MaiBenBen on 2017/4/14.
  */
 
 public class WebViewController extends WebView {
+
+    //声明上下文对象
     private Context context;
 
-
+    //声明WebViewController全局对象
     private WebViewController control;
 
     //网络未加载完的loading图片
     private ImageView imageView;
-    private String sss = "";
 
+    //截取到的网址上的消息头字符串 表示要进入到那个页面
+    private String sbFunName = "";
+
+    private ViewGroup parentLayout;
+    private View view1;
 
     public WebViewController(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -62,18 +70,6 @@ public class WebViewController extends WebView {
         super(context, attrs, defStyleAttr);
         webviewSettings();
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public WebViewController(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        webviewSettings();
-    }
-
-    public WebViewController(Context context, AttributeSet attrs, int defStyleAttr, boolean privateBrowsing) {
-        super(context, attrs, defStyleAttr, privateBrowsing);
-        webviewSettings();
-    }
-
 
     public WebViewController(Context context) {
         super(context);
@@ -125,8 +121,6 @@ public class WebViewController extends WebView {
 
 
         HtmlMessageForLocal newWebViewActivity = new HtmlMessageForLocal();
-
-
         this.addJavascriptInterface(newWebViewActivity, "android");
 
         /**
@@ -135,7 +129,8 @@ public class WebViewController extends WebView {
         setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
-                //
+                parentLayout.removeView(view1);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("错误提醒")
                         .setMessage(message)
                         .setIcon(R.drawable.icon_login)
@@ -175,6 +170,9 @@ public class WebViewController extends WebView {
 
             /**
              * WebView开始加载
+             * 1.通过截取网页 url 中指定的参数确定这个页面
+             * 2.根据匹配结果而确定所要操作的是哪个页面
+             * 3.注册广播接收器，接受消息处理类中发过来的广播去刷新数据
              * @param view
              * @param url
              * @param favicon
@@ -188,22 +186,24 @@ public class WebViewController extends WebView {
                 int hhh = url.indexOf("WebViewRefreshNotification=");
                 if (hhh != -1){
                     int xxx = hhh + 27;
-
-                    sss = url.substring(xxx);
-                    int ttt = sss.indexOf('&');
+                    sbFunName = url.substring(xxx);
+                    int ttt = sbFunName.indexOf('&');
                     if (ttt!= -1){
-
-                        sss = sss.substring(0,ttt);
+                        sbFunName = sbFunName.substring(0,ttt);
                     }
                 }
 
-                if (!sss.equals("")){
+                /**
+                 * 当最终截取到的字符串不是空的时候
+                 * 再去注册广播来接受发过来的广播消息
+                 */
+                if (!sbFunName.equals("")){
                     IntentFilter intentFilter = new IntentFilter();
-                    intentFilter.addAction(sss);
+                    intentFilter.addAction(sbFunName);
                     context.registerReceiver(new BroadcastReceiver() {
                         @Override
                         public void onReceive(Context context, Intent intent) {
-                            if (intent.getAction().equals(sss)) {
+                            if (intent.getAction().equals(sbFunName)) {  //接受广播
                                 String name = intent.getStringExtra("name");
                                 WebViewController.this.loadUrl("javascript:" + name);
                             }
@@ -218,14 +218,24 @@ public class WebViewController extends WebView {
                 ViewGroup.LayoutParams size = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 80);
                 imageView.setLayoutParams(size);
                 Glide.with(ActivityCollector.getTopActivity()).load(R.drawable.loading3).into(imageView);
-                ViewGroup parentLayout = (ViewGroup) WebViewController.this.getParent();
+                parentLayout = (ViewGroup) WebViewController.this.getParent().getParent();
                 parentLayout.addView(imageView);
                 parentLayout.getPaddingRight();
                 imageView.setVisibility(View.VISIBLE);
+
+                /*AVLoadingIndicatorView avLoadingIndicatorView = new AVLoadingIndicatorView(ActivityCollector.getTopActivity().getApplicationContext());
+                avLoadingIndicatorView.setIndicator("BallPulseIndicator");
+                avLoadingIndicatorView.setIndicatorColor(Color.WHITE);
+                ViewGroup.LayoutParams sizes = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                avLoadingIndicatorView.setLayoutParams(sizes);
+                ViewGroup parentLayouts = (ViewGroup) WebViewController.this.getParent();
+                parentLayouts.addView(avLoadingIndicatorView);
+                parentLayout.getPaddingStart();
+                avLoadingIndicatorView.setVisibility(View.VISIBLE);*/
             }
 
             /**
-             * webview加载完成
+             * WebView加载完成
              * @param view
              * @param url
              */
@@ -234,7 +244,6 @@ public class WebViewController extends WebView {
                 imageView.setVisibility(View.GONE);
             }
         });
-
     }
 
     @Override
@@ -242,4 +251,17 @@ public class WebViewController extends WebView {
         super.onScrollChanged(l, t, oldl, oldt);
 
     }
+
+    public void isShowLoading(Boolean is){
+        if(parentLayout!=null){
+            view1 = LayoutInflater.from(context).inflate(R.layout.loading_gif,null);
+            if(is){
+                //view1.setAlpha(0.5f);
+                parentLayout.addView(view1);
+            }else{
+                parentLayout.removeView(view1);
+            }
+        }
+    }
+
 }

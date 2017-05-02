@@ -3,10 +3,13 @@ package com.lansum.eip.activity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lansum.eip.BaseActivity;
 import com.lansum.eip.R;
@@ -35,6 +38,7 @@ public class NewWebViewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         /**
          * 隐藏状态栏
          */
@@ -47,6 +51,32 @@ public class NewWebViewActivity extends BaseActivity {
         }
         setContentView(R.layout.activity_new_web_view);
         ButterKnife.bind(this);
+
+        SwipeRefreshLayout swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.refresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(NewWebViewActivity.this, "刷新成功", Toast.LENGTH_SHORT).show();
+                                swipeRefresh.setRefreshing(false);
+                            }
+                        });
+                    }
+                }).start();
+            }
+        });
+
         String url = getIntent().getStringExtra("url");
         int anim = getIntent().getIntExtra("animation", 0);
 
@@ -63,7 +93,7 @@ public class NewWebViewActivity extends BaseActivity {
                     public void onClick(View v) {
                         finish();
                         //设置页面退出动画为从左往右退出
-                        overridePendingTransition( R.anim.none,R.anim.slide_right_out);
+                        overridePendingTransition(R.anim.none, R.anim.slide_right_out);
                     }
                 });
 

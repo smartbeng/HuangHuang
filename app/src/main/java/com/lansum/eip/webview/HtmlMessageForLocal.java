@@ -174,6 +174,11 @@ public class HtmlMessageForLocal {
             ActivityCollector.getTopActivity().getResources();
             int imageId = ActivityCollector.getTopActivity().getResources().getIdentifier(rightInfo.image.toLowerCase(), "drawable",
                     ActivityCollector.getTopActivity().getPackageName());
+            if (imageId == 0) {
+                Toast.makeText(ActivityCollector.getTopActivity(), "没找到左上角资源文件", Toast.LENGTH_SHORT).show();
+            }
+
+
             Log.e(TAG, "*************rightInfo.image*****找到了");
             ActivityCollector.getTopActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -209,7 +214,7 @@ public class HtmlMessageForLocal {
             ActivityCollector.getTopActivity().getResources();
             int imageId = ActivityCollector.getTopActivity().getResources().getIdentifier(rightInfo.image.toLowerCase(), "drawable",
                     ActivityCollector.getTopActivity().getPackageName());
-            Log.e(TAG, "*************rightInfo.image*****找到了");
+            Log.e(TAG, "*************rightInfo.image*****找到了"+imageId+rightInfo.image);
             ActivityCollector.getTopActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -239,8 +244,10 @@ public class HtmlMessageForLocal {
                     topRightText.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            WebView baseWebView = (WebView) ActivityCollector.getTopActivity().findViewById(R.id.base_web_view);
+                            WebViewController baseWebView = (WebViewController) ActivityCollector.getTopActivity().findViewById(R.id.base_web_view); //提交后开始的地方
                             baseWebView.loadUrl("javascript:" + rightInfo.funcName);
+                            baseWebView.isShowLoading(true);
+
                         }
                     });
                 }
@@ -291,18 +298,22 @@ public class HtmlMessageForLocal {
 
     /**
      * 调用页面刷新
+     * * 当添加的右上角按钮为文字时网页会调这个方法去进行页面刷新
      * @param data
      */
     protected void postNotificationFromJS(String data){
         Gson gson = new Gson();
         ReFreshInfo a = gson.fromJson(data,ReFreshInfo.class);
         Intent intent = new Intent();
+        //指定接收方所要匹配的参数
         intent.setAction(a.notificationName);
+        //将加载的LoadData（true）传到更新页面的方法中
         intent.putExtra("name",a.funcName);
+        //发送广播通知界面更新
         ActivityCollector.getTopActivity().sendBroadcast(intent);
 
-        Toast.makeText(ActivityCollector.getTopActivity().getApplicationContext(), "页面更新", Toast.LENGTH_SHORT).show();
-       // String notificationName = gson.get
+        Toast.makeText(ActivityCollector.getTopActivity().getApplicationContext(), "提交成功", Toast.LENGTH_SHORT).show();
+
     }
 
     /**

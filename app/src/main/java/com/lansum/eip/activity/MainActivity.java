@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager mViewPager;
 
     //加号请假按钮
-    private ImageView mImageView;
+    private ImageView addImageView;
 
     //Menu菜单
     private Menu mMenu;
@@ -69,6 +69,19 @@ public class MainActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
         setContentView(R.layout.activity_main);
+        addImageView = (ImageView) findViewById(R.id.add_img);
+        addImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NewWebViewActivity.class);
+                intent.putExtra("url", Constants.urlHostBase + Constants.urlQingJia);
+                intent.putExtra("animation", R.anim.bottom_dialog_out);
+                startActivity(intent);
+                overridePendingTransition(R.anim.bottom_dialog_in, R.anim.bottom_dialog_out);
+
+            }
+        });
+
         ButterKnife.bind(this);
         initView();
     }
@@ -89,13 +102,13 @@ public class MainActivity extends AppCompatActivity {
         //将TabLayout和ViewPager进行关联
         mTablayout.setupWithViewPager(mViewPager);
         for (int i = 0; i < mMenu.size(); i++) {
-                //循环获取每一个Tab对象
-                TabLayout.Tab tab = mTablayout.getTabAt(i);
-                //获取每一个menu中存储的数据
-                MenuItem item = mMenu.getItem(i);
-                //设置item显示的文本
-                tab.setText(item.getTitle());
-                tab.setIcon(item.getIcon());
+            //循环获取每一个Tab对象
+            TabLayout.Tab tab = mTablayout.getTabAt(i);
+            //获取每一个menu中存储的数据
+            MenuItem item = mMenu.getItem(i);
+            //设置item显示的文本
+            tab.setText(item.getTitle());
+            tab.setIcon(item.getIcon());
         }
 
 

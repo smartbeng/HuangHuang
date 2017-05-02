@@ -1,1 +1,1 @@
-include ':app', ':Library', ':PushSDK', 'PullToRefresh-Library'
+include ':app', ':Library', ':PushSDK'

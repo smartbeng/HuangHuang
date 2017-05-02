@@ -52,5 +52,10 @@
 
     </style>
 
+    <style name="Animation_Bottom_Dialog">
+        <item name="android:windowEnterAnimation">@anim/bottom_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/bottom_dialog_out</item>
+    </style>
+
 
 </resources>

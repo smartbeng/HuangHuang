@@ -11,11 +11,32 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/user_settings_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@color/cardview_dark_background"
+        android:layout_height="70dp"
+        android:background="#00a6ff"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_scrollFlags="scroll|enterAlways" />
+    <ImageView
+        android:id="@+id/setting_back_img"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignRight="@id/web_top_toolbar"
+        android:layout_alignTop="@id/web_top_toolbar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/fanhui"/>
+
+
+    <TextView
+        android:id="@+id/setting_back_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/web_top_toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:text="设置"/>
     <com.lansum.eip.view.CommItemView
         android:id="@+id/item_change_password"
         android:layout_width="match_parent"
