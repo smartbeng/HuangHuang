@@ -59,7 +59,7 @@ public class HtmlMessageForLocal {
 
         } else if (methodName.equals("setTitleFromJS")) {
 
-            setTitleFromJS(data);             // 设置抬头
+            setTitleFromJS(data);             // 设置页面顶部
 
         } else if (methodName.equals("addRightBarButtonItemFromJS")) {
 
@@ -151,7 +151,7 @@ public class HtmlMessageForLocal {
                 mPushAgent.addExclusiveAlias(UserId, "HuangHuang", new UTrack.ICallBack() {
                     @Override
                     public void onMessage(boolean b, String s) {
-                        Toast.makeText(ActivityCollector.getTopActivity(), "............", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(ActivityCollector.getTopActivity(), "............", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -255,7 +255,10 @@ public class HtmlMessageForLocal {
         }
     }
 
-    // 设置抬头（WebView中toolbar上的标题）
+    /**
+     * 设置抬头（WebView中toolbar上的标题）
+     * @param title
+     */
     protected void setTitleFromJS(final String title) {
         ActivityCollector.getTopActivity().runOnUiThread(new Runnable() {
             @Override
@@ -292,8 +295,15 @@ public class HtmlMessageForLocal {
      * 调用js方法关闭网页
      */
     protected void dismissViewControllerFromJS(){
-        ActivityCollector.getTopActivity().finish();
-        ActivityCollector.getTopActivity().overridePendingTransition(R.anim.none, R.anim.push_bottom_out);
+        Activity activity = ActivityCollector.getTopActivity();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.finish();
+                activity.overridePendingTransition(R.anim.none, R.anim.push_bottom_out);
+            }
+        });
+
     }
 
     /**

@@ -8,6 +8,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import android.os.Bundle;
@@ -17,47 +20,69 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.lansum.eip.BaseActivity;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.lansum.eip.R;
 import com.lansum.eip.fragment.HomeFragment;
 import com.lansum.eip.fragment.MainFragment;
-import com.lansum.eip.fragment.QingJiaFragment;
 import com.lansum.eip.http.Constants;
 import com.lansum.eip.util.ActivityCollector;
-import com.lansum.eip.util.StatusBarUtil;
 import com.lansum.eip.util.ToastStudio;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     protected MainActivity mainActivity;
 
-    //底部导航的空间容器
-    @BindView(R.id.tab_bottom_container)
-    TabLayout mTablayout;
+    private FragmentStatePagerAdapter mAdapter; //获取fragment的数量
+    private List<Fragment> mFragments;          //fragment页面集合
+    private PagerAdapter myPageAdapter;         //viewpager适配器（给viewpager添加fragment界面布局）
+    FragmentManager fm ;                        //fragment管理器
+    FragmentTransaction transaction ;           //fragment事务提交对象
+    private ImageView addImageView;             //加号请假按钮
+    private long ExitTime;                      //按下back键的时间(再按一次退出的参数)
+    Fragment mTab0;                             //主页fragment界面
+    Fragment mTab1;                             //我的fragment界面
 
     //ViewPager滑动
     @BindView(R.id.vp_container)
     ViewPager mViewPager;
 
-    //加号请假按钮
-    private ImageView addImageView;
+    //主页文字
+    @BindView(R.id.tab1_text)
+    TextView linear1Text;
 
-    //Menu菜单
-    private Menu mMenu;
+    //我的文字
+    @BindView(R.id.tab2_text)
+    TextView linear2Text;
 
-    //按下back键的时间
-    private long ExitTime;
+    //主页底部图标
+    @BindView(R.id.tab1_img)
+    ImageView linear1Img;
+
+    //我的底部图标
+    @BindView(R.id.tab2_img)
+    ImageView linear2Img;
+
+    //主页底部图标文字加图片_整体布局
+    @BindView(R.id.tab1_liner)
+    LinearLayout tab1LinearLayout;
+
+    //我的底部图标文字加图片_整体布局
+    @BindView(R.id.tab2_liner)
+    LinearLayout tab2LinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         /**
          * 隐藏状态栏
          */
@@ -69,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
         setContentView(R.layout.activity_main);
+
+        /**
+         * 主页底部（圆角加号）请假点击事件
+         */
         addImageView = (ImageView) findViewById(R.id.add_img);
         addImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,42 +110,209 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         ButterKnife.bind(this);
         initView();
+        initEvent();
+        setSelect(0);
+    }
+
+    private void initEvent() {
+        tab1LinearLayout.setOnClickListener(this);
+        tab2LinearLayout.setOnClickListener(this);
     }
 
     /**
-     * 将 menu 文件添加到 TabLayout 中
-     * 将 TabLayout 与 ViewPager 关联
-     * 实现点击和滑动页面的功能
+     *开启事务并初始化页面数据
+     *
      */
     private void initView() {
-        //创建menu对象
-        mMenu = new MenuBuilder(this);
-        //将menu文件添加到menu对象
-        getMenuInflater().inflate(R.menu.tab_bottom, mMenu);
-        //将适配器与viewpager进行关联
-        MyAdapter adapter = new MyAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(adapter);
-        //将TabLayout和ViewPager进行关联
-        mTablayout.setupWithViewPager(mViewPager);
-        for (int i = 0; i < mMenu.size(); i++) {
-            //循环获取每一个Tab对象
-            TabLayout.Tab tab = mTablayout.getTabAt(i);
-            //获取每一个menu中存储的数据
-            MenuItem item = mMenu.getItem(i);
-            //设置item显示的文本
-            tab.setText(item.getTitle());
-            tab.setIcon(item.getIcon());
-        }
+        fm = getSupportFragmentManager();
+        transaction = fm.beginTransaction();  //开启事务
+        mFragments = new ArrayList<Fragment>();
+        mTab0 = new MainFragment();
+        mTab1 = new HomeFragment();
+        mFragments.add(mTab0);  //将new出来的fragment布局添加至fragment集合中
+        mFragments.add(mTab1);
 
+        /**
+         * 获取集合中fragment页面数量
+         * 获取位置坐标（0和1）
+         */
+        mAdapter = new FragmentStatePagerAdapter(getSupportFragmentManager()){
 
+            @Override
+            public int getCount()
+            {
+                return mFragments.size();
+            }
+
+            @Override
+            public Fragment getItem(int arg0)
+            {
+                return mFragments.get(arg0);
+            }
+        };
+
+        myPageAdapter = new PagerAdapter(){
+
+            @Override
+            public void destroyItem(ViewGroup container, int position,
+                                    Object object){
+                container.removeView(mFragments.get(position).getView());
+            }
+
+            @Override
+            public Object instantiateItem(ViewGroup container, int position){
+				/*View view = mViews.get(position);
+				container.addView(view);*/
+
+                Fragment fragment = mFragments.get(position);
+                if(!fragment.isAdded()){ // 如果fragment还没有added
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.add(fragment, fragment.getClass().getSimpleName());
+                    ft.commit();
+                    /**
+                     * 在用FragmentTransaction.commit()方法提交FragmentTransaction对象后
+                     * 会在进程的主线程中，用异步的方式来执行。
+                     * 如果想要立即执行这个等待中的操作，就要调用这个方法（只能在主线程中调用）。
+                     * 要注意的是，所有的回调和相关的行为都会在这个调用中被执行完成，因此要仔细确认这个方法的调用位置。
+                     */
+                    fm.executePendingTransactions();
+                }
+
+                if(fragment.getView().getParent() == null){
+                    container.addView(fragment.getView()); // 为viewpager增加布局
+                }
+
+                return fragment.getView();
+                //return view;
+            }
+
+            @Override
+            public boolean isViewFromObject(View arg0, Object arg1){
+                return arg0 == arg1;
+            }
+
+            @Override
+            public int getCount(){
+                return mFragments.size();
+            }
+        };
+
+        //设置缓存数，我们这里不需要预加载
+        mViewPager .setOffscreenPageLimit(0);
+        mViewPager.setAdapter(myPageAdapter);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+
+            @Override
+            public void onPageSelected(int arg0){
+                int currentItem = mViewPager.getCurrentItem();
+                setTab(currentItem);
+            }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2){
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int arg0){
+                // TODO Auto-generated method stub
+
+            }
+        });
     }
+
+    private void setTab(int i){
+        resetImgs();    // 设置图片为亮色
+        setBottom(i);   // 切换内容区域
+    }
+
+    /**
+     * 切换图片至暗色，不选中
+     */
+    private void resetImgs(){
+        linear1Img.setSelected(false);
+        linear2Img.setSelected(false);
+
+        linear1Text.setSelected(false);
+        linear2Text.setSelected(false);
+    }
+    //选中
+    private void setBottom(int position){
+        switch (position) {
+            case 0:
+                linear1Img.setSelected(true);
+                linear1Text.setSelected(true);
+                break;
+            case 1:
+                linear2Img.setSelected(true);
+                linear2Text.setSelected(true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.tab1_liner:
+                setSelect(1);
+                break;
+            case R.id.tab2_liner:
+                setSelect(0);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setSelect(int i){
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        hideFragment(transaction);
+        switch (i){
+            case 0:
+                //mImgWeixin.setImageResource(R.drawable.tab_weixin_pressed);
+                break;
+            case 1:
+                //transaction.show(mTab02);
+                mTab1.onResume();   //当切换至一个fragment界面时另一个保持暂停状态
+                //	mImgFrd.setImageResource(R.drawable.tab_find_frd_pressed);
+                break;
+            default:
+                break;
+        }
+        setTab(i);
+        mViewPager.setCurrentItem(i);
+    }
+
+    /**
+     * 隐藏Fragment
+     * @param transaction
+     */
+    private void hideFragment(FragmentTransaction transaction){
+        if (mTab0!= null){
+            transaction.hide(mTab0);
+        }
+        if (mTab1 != null){
+            transaction.hide(mTab1);
+        }
+    }
+
+    //页面销毁时将Activity移出栈
+    @Override
+    protected void onDestroy() {
+        ActivityCollector.removeActivity(mainActivity);
+        super.onDestroy();
+    }
+
 
     /**
      * 再按一次退出
-     *
      * @param keyCode
      * @param event
      * @return
@@ -133,40 +329,5 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    /**
-     * 滑动适配器
-     */
-    class MyAdapter extends FragmentPagerAdapter {
-
-        public MyAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return new MainFragment();
-                case 1:
-                    return new QingJiaFragment();
-
-                case 2:
-                    return new HomeFragment();
-            }
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return mMenu.size();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        ActivityCollector.removeActivity(mainActivity);
-        super.onDestroy();
     }
 }

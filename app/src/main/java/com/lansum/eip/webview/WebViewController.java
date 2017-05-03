@@ -15,6 +15,7 @@ import android.os.RecoverySystem;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,8 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import anetwork.channel.NetworkCallBack;
 
+import static org.android.agoo.common.e.TAG;
+
 /**
  * Created by MaiBenBen on 2017/4/14.
  */
@@ -58,6 +61,7 @@ public class WebViewController extends WebView {
     private String sbFunName = "";
 
     private ViewGroup parentLayout;
+
     private View view1;
 
     public WebViewController(Context context, AttributeSet attrs) {
@@ -246,9 +250,31 @@ public class WebViewController extends WebView {
         });
     }
 
+    /**
+     * 屏幕滚动监听
+     * @param l
+     * @param t
+     * @param oldl
+     * @param oldt
+     */
     @Override
     protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-        super.onScrollChanged(l, t, oldl, oldt);
+        /*//Log.e(TAG, "1111111111111 "+l );  //等于0
+        Log.e(TAG, "ttttttttttttt" + t);  //精确计算向下滚动距离，从列表没滑动时零开始
+        *//*Log.e(TAG, "oldllllllllll"+oldl );*//*//等于0
+        //Log.e(TAG, "oldtttttttttt"+oldt ); //手指滑动屏幕的的距离坐标，同上，坐标不好确定
+        ImageView imageView = (ImageView) findViewById(R.id.topBackground);
+
+        if (t >=1644 ){
+            imageView.setAlpha(0.100f);
+        }else if (t>=1680){
+            imageView.setAlpha(0.500f);
+        }else if (t>=1730){
+            imageView.setAlpha(0.800f);
+        }else if (t>=1800){
+            imageView.setAlpha(0.999f);
+        }
+        super.onScrollChanged(l, t, oldl, oldt);*/
 
     }
 

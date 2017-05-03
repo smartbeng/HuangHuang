@@ -42,22 +42,6 @@ public class MyWebChromeClient extends WebChromeClient {
     // 一个回调接口使用的主机应用程序通知当前页面的自定义视图已被撤职
     CustomViewCallback customViewCallback;
 
-    /*@Override
-    public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
-        //
-        AlertDialog.Builder builder = new AlertDialog.Builder(context).setTitle("标题").setMessage(message)
-                .setPositiveButton("ok", new AlertDialog.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        result.confirm();
-                    }
-                });
-        builder.setCancelable(false);
-        builder.create();
-        builder.show();
-        returns true;
-    }*/
-
 
     //配置权限（同样在WebChromeClient中实现）
     @Override

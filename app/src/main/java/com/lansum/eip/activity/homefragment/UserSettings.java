@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,9 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
-import com.lansum.eip.BaseActivity;
+
 import com.lansum.eip.R;
-import com.lansum.eip.activity.LoginActivity;
 import com.lansum.eip.activity.NewWebViewActivity;
 import com.lansum.eip.http.Constants;
 import com.lansum.eip.util.ToastStudio;
@@ -32,7 +32,7 @@ import butterknife.OnClick;
 import ch.ielse.view.SwitchView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class UserSettings extends BaseActivity {
+public class UserSettings extends AppCompatActivity {
 
     @BindView(R.id.user_settings_toolbar)
     Toolbar setttingToolbar;
@@ -125,7 +125,7 @@ public class UserSettings extends BaseActivity {
                 SweetAlertDialog pDialogCache = new SweetAlertDialog(UserSettings.this, SweetAlertDialog.WARNING_TYPE);
                 //确认操作弹框（不带取消）
                 pDialogCache.setTitleText("确定清理缓存吗?")
-                        .setContentText("缓存让加载速度更快!")
+                        //.setContentText("缓存让加载速度更快!")
                         .setConfirmText("是的，清理它")
                         .setCancelText("NO，点错了！")
                         .showCancelButton(false)

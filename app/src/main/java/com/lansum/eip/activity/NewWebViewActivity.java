@@ -5,19 +5,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lansum.eip.BaseActivity;
 import com.lansum.eip.R;
+import com.lansum.eip.util.ActivityCollector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NewWebViewActivity extends BaseActivity {
+public class NewWebViewActivity extends AppCompatActivity {
+
+    public NewWebViewActivity newWebViewActivity;
 
     @BindView(R.id.base_web_view)
     WebView baseWebView;
@@ -97,7 +100,16 @@ public class NewWebViewActivity extends BaseActivity {
                     }
                 });
 
-            }/*else if(anim == R.anim.push_bottom_out){
+            }/*else if (anim == R.anim.bottom_dialog_out){
+                overridePendingTransition(R.anim.bottom_dialog_in,R.anim.bottom_dialog_out);
+                backImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        overridePendingTransition(R.anim.none,R.anim.bottom_dialog_out);
+                    }
+                });
+            }*/
+            /*else if(anim == R.anim.push_bottom_out){
                 rightImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -108,4 +120,9 @@ public class NewWebViewActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        ActivityCollector.removeActivity(newWebViewActivity);
+        super.onDestroy();
+    }
 }

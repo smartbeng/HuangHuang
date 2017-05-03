@@ -12,16 +12,17 @@
         android:id="@+id/shouYeTop"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:layout_alignParentTop="true">
 
+        <!-- 导航栏背景 -->
         <ImageView
             android:id="@+id/topBackground"
             android:layout_width="match_parent"
             android:layout_height="74dp"
             android:alpha="0"
-            android:src="@drawable/top_background" />
+            android:src="@drawable/top_background"
+            />
         <!-- 通知图标 -->
 
         <ImageView

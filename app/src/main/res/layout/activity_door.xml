@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_door"
@@ -14,12 +14,13 @@
         android:background="@android:color/holo_blue_light"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:layout_scrollFlags="scroll|enterAlways" />
+        app:layout_scrollFlags="scroll|enterAlways"
+        android:layout_gravity="top"/>
     <ImageView
         android:id="@+id/open_door_gif"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/door_toolbar"/>
+        android:layout_gravity="center"/>
 
     <!-- 手动点击开门图标布局 -->
     <com.zhy.android.percent.support.PercentLinearLayout
@@ -27,8 +28,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/open_door_gif"
-        android:layout_marginLeft="30dp">
+        android:layout_gravity="left|bottom"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="100dp">
         <ImageView
             android:id="@+id/yaoshi_4"
             android:layout_width="30dp"
@@ -47,9 +49,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/open_door_gif"
-        android:layout_toRightOf="@+id/linear_4"
-        android:layout_marginLeft="80dp">
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="100dp">
         <ImageView
             android:id="@+id/yaoshi_401"
             android:layout_width="30dp"
@@ -68,9 +69,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/open_door_gif"
-        android:layout_toRightOf="@+id/linear_401"
-        android:layout_marginLeft="80dp">
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="100dp">
         <ImageView
             android:id="@+id/yaoshi_408"
             android:layout_width="30dp"
@@ -89,9 +90,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/linear_4"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp">
+        android:layout_gravity="left|bottom"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="30dp">
         <ImageView
             android:id="@+id/yaoshi_3"
             android:layout_width="30dp"
@@ -107,4 +108,4 @@
     </LinearLayout>
 
 
-</RelativeLayout>
+</FrameLayout>

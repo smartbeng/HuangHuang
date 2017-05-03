@@ -91,6 +91,5 @@ public class CoreApplication extends Application {
                 ActivityCollector.removeActivity(activity);
             }
         });
-
     }
 }

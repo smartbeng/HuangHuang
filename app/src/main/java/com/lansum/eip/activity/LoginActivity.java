@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.lansum.eip.BaseActivity;
 import com.lansum.eip.R;
 import com.lansum.eip.http.Constants;
 import com.lansum.eip.util.ActivityCollector;
@@ -16,7 +15,7 @@ import com.lansum.eip.webview.WebViewController;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends AppCompatActivity {
 
     public static Activity loginActivity;
 

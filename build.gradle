@@ -8,8 +8,8 @@ ext {
             package          : "com.lansum.eip",
             buildToolsVersion: "25.0.1",
             compileVersion   : 24,
-            minSdk           : 21,
-            targetSdk        : 24,
+            minSdk           : 14,
+            targetSdk        : 25,
             versionCode      : 1,
             versionName      : "1.0",
     ]
