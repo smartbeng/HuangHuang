@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/main_bottom_selector"
+        android:title="首页" />
+    <item
+        android:id="@+id/menu_leave"
+        android:icon="@drawable/tab_plus"
+        android:title="请假" />
+    <item
+        android:id="@+id/menu_self"
+        android:icon="@drawable/home_bottom_selector"
+        android:title="我" />
+</menu>

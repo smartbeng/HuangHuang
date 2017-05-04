@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:drawableTop="@drawable/main_bottom_selector"
+        android:layout_marginTop="5dp"
+        android:text="首页"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:drawableTop="@drawable/work_bottom_selector"
+        android:text="首页"
+        android:layout_marginTop="5dp"/>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        android:layout_weight="0.8"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:drawableTop="@drawable/project_bottom_selector"
+        android:text="首页"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:drawableTop="@drawable/home_bottom_selector"
+        android:text="首页"
+        android:layout_marginTop="5dp"/>
+
+
+</LinearLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_new_web_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:theme="@android:style/Animation.Toast"
+    android:background="@android:color/white"
+    tools:context="com.lansum.eip.activity.NewWebViewActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/web_top_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentTop="true"
+        android:background="#00a6ff"/>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/web_top_toolbar">
+
+        <com.lansum.eip.webview.WebViewController
+            android:id="@+id/base_web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <ImageView
+        android:id="@+id/right_Button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignRight="@id/web_top_toolbar"
+        android:layout_alignTop="@id/web_top_toolbar"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="30dp"
+        android:visibility="gone" />
+
+
+    <TextView
+        android:id="@+id/toolbar_text_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/web_top_toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/back_web"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignLeft="@id/web_top_toolbar"
+        android:layout_alignTop="@id/web_top_toolbar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="30dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/right_Button_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/web_top_toolbar"
+        android:layout_alignTop="@id/web_top_toolbar"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+</RelativeLayout>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:id="@+id/layout_bottom"
     android:layout_width="match_parent"
     android:layout_height="55dp"
@@ -8,51 +7,57 @@
     android:background="@android:color/white">
 
     <LinearLayout
-        android:id="@+id/tab2_liner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="left|center"
-        android:layout_marginLeft="30dp">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/tab2_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/main_bottom_selector" />
         <TextView
-            android:id="@+id/tab2_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="首页" />
+            android:id="@+id/tab1_liner"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@drawable/main_bottom_selector"
+            android:layout_marginTop="5dp"
+            android:text="首页"
+            android:textSize="10sp"/>
+        <TextView
+            android:id="@+id/tab2_liner"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@drawable/work_bottom_selector"
+            android:text="工作面板"
+            android:layout_marginTop="5dp"
+            android:textSize="10sp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:visibility="invisible"
+            android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/tab3_liner"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@drawable/project_bottom_selector"
+            android:text="项目管理"
+            android:layout_marginTop="5dp"
+            android:textSize="10sp"/>
+        <TextView
+            android:id="@+id/tab4_liner"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:drawableTop="@drawable/home_bottom_selector"
+            android:text="我的"
+            android:layout_marginTop="5dp"
+            android:textSize="10sp"/>
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/leave_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="请假"
-        android:layout_gravity="center"
-        android:layout_marginTop="13dp"/>
-
-    <LinearLayout
-        android:id="@+id/tab1_liner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="right|center"
-        android:layout_marginRight="30dp">
-        <ImageView
-            android:id="@+id/tab1_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/home_bottom_selector" />
-        <TextView
-            android:id="@+id/tab1_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我"
-            android:layout_gravity="center"/>
-    </LinearLayout>
 
 </FrameLayout>

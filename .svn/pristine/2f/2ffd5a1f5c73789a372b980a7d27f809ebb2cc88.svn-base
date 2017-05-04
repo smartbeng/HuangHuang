@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  引用的属性名称-->
+    <attr name="CommItemViewAttr" format="reference"></attr>
+    <!--自定义属性集合-->
+    <declare-styleable name="CommItemView">
+        <!--左右两边的文本信息-->
+        <attr name="left_text" format="string" />
+        <attr name="right_text" format="string" />
+
+        <!-- 左右文本大小 -->
+        <attr name="left_text_size" format="integer" />
+        <attr name="right_text_size" format="integer" />
+
+        <!-- 左右显示的图片 -->
+        <attr name="right_img_src" format="reference" />
+        <attr name="left_img_src" format="reference" />
+
+        <!-- 背景颜色 -->
+        <attr name="background_color" format="color" />
+
+        <!--左右文本的颜色-->
+        <attr name="left_text_color" format="color" />
+        <attr name="right_text_color" format="color" />
+
+        <!--是否显示分割线-->
+        <attr name="is_divider_visibility" format="boolean" />
+    </declare-styleable>
+
+</resources>

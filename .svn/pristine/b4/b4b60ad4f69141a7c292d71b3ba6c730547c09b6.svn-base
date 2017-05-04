@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false">
+
+    <com.lansum.eip.webview.WebViewController
+        android:id="@+id/main_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/shouYeTop"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:visibility="visible"
+        android:layout_alignParentTop="true">
+
+        <!-- 导航栏背景 -->
+        <ImageView
+            android:id="@+id/topBackground"
+            android:layout_width="match_parent"
+            android:layout_height="74dp"
+            android:alpha="0"
+            android:src="@drawable/top_background"
+            />
+        <!-- 通知图标 -->
+
+        <ImageView
+            android:id="@+id/tongZhiImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/navbar_message" />
+        <!-- 通知图标 -->
+
+        <ImageView
+            android:id="@+id/redPosition"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/red_pos" />
+
+        <!-- 开门图标 -->
+
+        <ImageView
+            android:id="@+id/open_door"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right|top"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/navbar_opendoor" />
+    </FrameLayout>
+
+</RelativeLayout>

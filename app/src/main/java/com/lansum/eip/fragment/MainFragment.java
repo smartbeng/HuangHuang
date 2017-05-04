@@ -47,7 +47,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this com.lansum.lansumhh.fragment
         view = inflater.inflate(R.layout.fragment_main, container, false);
         mainWebView = (WebViewController) view.findViewById(R.id.main_webview);
-        mainWebView.loadUrl(Constants.urlHostBase + Constants.urlIndex);
+        mainWebView.loadUrl(Constants.urlHostHigh + Constants.urlIndex);
 
         tongImageView = (ImageView) view.findViewById(R.id.tongZhiImage);
         doorImageView = (ImageView) view.findViewById(R.id.open_door);

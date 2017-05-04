@@ -1,0 +1,93 @@
+<in.srain.cube.views.ptr.PtrFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/store_house_ptr_frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    cube_ptr:ptr_duration_to_close="300"
+    cube_ptr:ptr_duration_to_close_header="2000"
+    cube_ptr:ptr_keep_header_when_refresh="true"
+    cube_ptr:ptr_pull_to_fresh="false"
+    cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+    cube_ptr:ptr_resistance="1.7">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/home_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="#00a6ff">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp"
+                    android:text="我"
+                    android:layout_marginLeft="171dp"
+                    android:layout_marginTop="25dp"/>
+            </android.support.v7.widget.Toolbar>
+
+            <TextView
+                android:id="@+id/toolbar_text_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white" />
+
+            <com.lansum.eip.view.CommItemView
+                android:id="@+id/item_data"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                app:is_divider_visibility="true"
+                app:left_img_src="@drawable/me_person3x"
+                app:left_text="资料"
+                app:right_img_src="@drawable/icon_next" />
+
+            <com.lansum.eip.view.CommItemView
+                android:id="@+id/item_kaoqin"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:is_divider_visibility="true"
+                app:left_img_src="@drawable/me_kaoqin3x"
+                app:left_text="考勤"
+                app:right_img_src="@drawable/icon_next" />
+
+            <com.lansum.eip.view.CommItemView
+                android:id="@+id/item_team"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:is_divider_visibility="true"
+                app:left_img_src="@drawable/me_group3x"
+                app:left_text="团队"
+                app:right_img_src="@drawable/icon_next" />
+
+            <com.lansum.eip.view.CommItemView
+                android:id="@+id/item_nation"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:is_divider_visibility="true"
+                app:left_img_src="@drawable/me_message3x"
+                app:left_text="通知"
+                app:right_img_src="@drawable/icon_next" />
+
+            <com.lansum.eip.view.CommItemView
+                android:id="@+id/item_setting"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:is_divider_visibility="true"
+                app:left_img_src="@drawable/me_setting3x"
+                app:left_text="设置"
+                app:right_img_src="@drawable/icon_next" />
+        </LinearLayout>
+    </ScrollView>
+</in.srain.cube.views.ptr.PtrFrameLayout>
