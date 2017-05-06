@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:drawableTop="@drawable/main_bottom_selector"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="7dp"
             android:text="首页"
             android:textSize="10sp"/>
         <TextView
@@ -29,7 +29,7 @@
             android:gravity="center"
             android:drawableTop="@drawable/work_bottom_selector"
             android:text="工作面板"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="7dp"
             android:textSize="10sp"/>
         <View
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
             android:gravity="center"
             android:drawableTop="@drawable/project_bottom_selector"
             android:text="项目管理"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="7dp"
             android:textSize="10sp"/>
         <TextView
             android:id="@+id/tab4_liner"
@@ -54,7 +54,7 @@
             android:gravity="center"
             android:drawableTop="@drawable/home_bottom_selector"
             android:text="我的"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="7dp"
             android:textSize="10sp"/>
 
     </LinearLayout>

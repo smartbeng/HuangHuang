@@ -15,10 +15,6 @@ import com.lansum.eip.activity.mainfragment.DoorActivity;
 import com.lansum.eip.http.Constants;
 import com.lansum.eip.webview.WebViewController;
 
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -53,7 +49,6 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         doorImageView = (ImageView) view.findViewById(R.id.open_door);
         tongImageView.setOnClickListener(this);
         doorImageView.setOnClickListener(this);
-
         return view;
     }
 

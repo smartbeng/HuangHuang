@@ -2,5 +2,9 @@
     {
         "merged": "D:\\AndroidProject\\LansumHH\\Library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\ic_launcher.png",
         "source": "D:\\AndroidProject\\LansumHH\\Library\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\AndroidStudioProject\\LansumHH\\LansumHH\\Library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-mdpi-v4\\ic_launcher.png",
+        "source": "D:\\AndroidStudioProject\\LansumHH\\LansumHH\\Library\\build\\intermediates\\bundles\\debug\\res\\drawable-mdpi-v4\\ic_launcher.png"
     }
 ]

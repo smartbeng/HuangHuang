@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 
 import com.lansum.eip.R;
+import com.lansum.eip.activity.MainActivity;
 import com.lansum.eip.activity.NewWebViewActivity;
 import com.lansum.eip.http.Constants;
 import com.lansum.eip.util.ToastStudio;
@@ -132,19 +133,18 @@ public class UserSettings extends AppCompatActivity {
                         .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {  //取消
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
-                                sDialog.cancel();
-                                Toast.makeText(UserSettings.this, "取消", Toast.LENGTH_SHORT).show();
+                                sDialog.cancel();  //隐藏对话框
                             }
                         })
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
+                                //点击确定执行的操作
                                 new SweetAlertDialog(UserSettings.this, SweetAlertDialog.SUCCESS_TYPE)
                                         .setTitleText("清理成功!")
                                         .setContentText("您已成功清理了缓存!")
                                         .show();
                                 sDialog.cancel();
-                                Toast.makeText(UserSettings.this, "确定", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .show();
@@ -187,14 +187,18 @@ public class UserSettings extends AppCompatActivity {
                     mPopupWindow.dismiss();
                     Intent intent = new Intent(UserSettings.this,NewWebViewActivity.class);
                     intent.putExtra("url",Constants.urlHostBase + Constants.urlLogIn);
-                    Toast.makeText(UserSettings.this, "退出", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
                     break;
                 case R.id.btn_camera_cancel:
                     mPopupWindow.dismiss();
-                    Toast.makeText(UserSettings.this, "取消", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
     };
 
+    @Override
+    protected void onStop() {
+        finish();
+        super.onStop();
+    }
 }

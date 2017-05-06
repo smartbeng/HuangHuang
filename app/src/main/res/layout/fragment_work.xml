@@ -1,14 +1,12 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.lansum.eip.fragment.WorkFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:gravity="center"
+    <com.lansum.eip.webview.WebViewController
+        android:id="@+id/work_web"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="工作面板" />
-
-</FrameLayout>
+        android:layout_height="match_parent" />
+</RelativeLayout>

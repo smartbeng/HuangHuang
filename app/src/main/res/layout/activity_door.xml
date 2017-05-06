@@ -5,13 +5,13 @@
     android:id="@+id/activity_door"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_light"
+    android:background="#00a6ff"
     tools:context="com.lansum.eip.activity.mainfragment.DoorActivity">
     <android.support.v7.widget.Toolbar
         android:id="@+id/door_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        android:background="@android:color/holo_blue_light"
+        android:layout_height="wrap_content"
+        android:background="#00a6ff"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_scrollFlags="scroll|enterAlways"
@@ -22,6 +22,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+    </FrameLayout>
     <!-- 手动点击开门图标布局 -->
     <com.zhy.android.percent.support.PercentLinearLayout
         android:id="@+id/linear_4"

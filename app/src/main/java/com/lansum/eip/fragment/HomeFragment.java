@@ -1,6 +1,5 @@
 package com.lansum.eip.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -91,4 +90,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
 }

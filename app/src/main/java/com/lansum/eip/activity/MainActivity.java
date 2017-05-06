@@ -3,11 +3,8 @@ package com.lansum.eip.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.design.widget.TabLayout;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
@@ -15,16 +12,12 @@ import android.support.v4.view.ViewPager;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuBuilder;
+import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lansum.eip.R;
 import com.lansum.eip.fragment.HomeFragment;
@@ -34,6 +27,7 @@ import com.lansum.eip.fragment.WorkFragment;
 import com.lansum.eip.http.Constants;
 import com.lansum.eip.util.ActivityCollector;
 import com.lansum.eip.util.ToastStudio;
+import com.lansum.eip.webview.WebViewController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +37,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "MainActivity";
     protected MainActivity mainActivity;
 
     private FragmentStatePagerAdapter mAdapter; //获取fragment的数量
@@ -53,36 +48,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView addImageView;             //加号请假按钮
     private long ExitTime;                      //按下back键的时间(再按一次退出的参数)
     Fragment mTab0;                             //主页fragment界面
-    Fragment mTab1;                             //我的fragment界面
-    Fragment mTab2;
+    WorkFragment mTab1;                             //我的fragment界面
+    ProjectFragment mTab2;
     Fragment mTab3;
 
     //ViewPager滑动
     @BindView(R.id.vp_container) ViewPager mViewPager;
-
-   /* //主页文字
-    @BindView(R.id.tab1_text) TextView linear1Text;
-
-    //我的文字
-    @BindView(R.id.tab2_text) TextView linear2Text;
-
-    //工作面板文字
-    @BindView(R.id.tab3_text) TextView linear3Text;
-
-    //项目管理文字
-    @BindView(R.id.tab4_text) TextView linear4Text;*/
-
-    //主页底部图标
-    /*@BindView(R.id.tab1_img) ImageView linear1Img;
-
-    //我的底部图标
-    @BindView(R.id.tab2_img) ImageView linear2Img;
-
-    //工作面板底部图标
-    @BindView(R.id.tab3_img) ImageView linear3Img;
-
-    //项目管理底部图标
-    @BindView(R.id.tab4_img) ImageView linear4Img;*/
 
     //主页底部图标加文字_整体布局
     @BindView(R.id.tab1_liner) TextView tab1LinearLayout;
@@ -257,42 +228,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * 切换图片至暗色，不选中
      */
     private void resetImgs(){
-        /*linear1Img.setSelected(false);
-        linear2Img.setSelected(false);
-        linear3Img.setSelected(false);
-        linear4Img.setSelected(false);*/
-
         tab1LinearLayout.setSelected(false);
         tab2LinearLayout.setSelected(false);
         tab3LinearLayout.setSelected(false);
         tab4LinearLayout.setSelected(false);
-
-        /*linear1Text.setSelected(false);
-        linear2Text.setSelected(false);
-        linear3Text.setSelected(false);
-        linear4Text.setSelected(false);*/
     }
     //选中
     private void setBottom(int position){
         switch (position) {
             case 0:
-                /*linear1Img.setSelected(true);
-                linear1Text.setSelected(true);*/
                 tab1LinearLayout.setSelected(true);
                 break;
             case 1:
-                /*linear2Img.setSelected(true);
-                linear2Text.setSelected(true);*/
                 tab2LinearLayout.setSelected(true);
                 break;
             case 2:
-                /*linear3Img.setSelected(true);
-                linear3Text.setSelected(true);*/
                 tab3LinearLayout.setSelected(true);
                 break;
             case 3:
-                /*linear4Img.setSelected(true);
-                linear4Text.setSelected(true);*/
                 tab4LinearLayout.setSelected(true);
                 break;
             default:
@@ -308,9 +261,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tab2_liner:
                 setSelect(1);
+                //mTab1.LoadUrl(Constants.urlHostHigh+Constants.urlAttendance);
                 break;
             case R.id.tab3_liner:
                 setSelect(2);
+                //mTab2.LoadUrl(Constants.urlHostHigh+Constants.urlGongZuoRiZhi);
                 break;
             case R.id.tab4_liner:
                 setSelect(3);
@@ -330,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 1:
                 //transaction.show(mTab02);
-                mTab1.onResume();   //当切换至一个fragment界面时另一个保持暂停状态
+                //mTab1.onResume();   //当切换至第一个fragment界面时第二个准备好交互状态
                 //	mImgFrd.setImageResource(R.drawable.tab_find_frd_pressed);
                 break;
             case 2:

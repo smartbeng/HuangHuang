@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lansum.eip.R;
+import com.lansum.eip.http.Constants;
 import com.lansum.eip.util.ActivityCollector;
 
 import butterknife.BindView;
@@ -36,6 +38,9 @@ public class NewWebViewActivity extends AppCompatActivity {
 
     @BindView(R.id.right_Button_text)
     TextView rightButtonText;
+
+    @BindView(R.id.web_top_toolbar)
+    Toolbar topToolbar;
 
 
     @Override
@@ -85,6 +90,9 @@ public class NewWebViewActivity extends AppCompatActivity {
 
         if (url == null) {
             finish();
+        }else if (url.equals(Constants.urlHostBase + Constants.urlLogIn)){
+            baseWebView.loadUrl(url);
+            topToolbar.setVisibility(View.GONE);
         } else {
             baseWebView.loadUrl(url);
             //当所有的新开页面 是从右往左打开时

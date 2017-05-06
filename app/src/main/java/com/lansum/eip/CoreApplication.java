@@ -42,7 +42,7 @@ public class CoreApplication extends Application {
             @Override
             public void onSuccess(String deviceToken) { //友盟推送注册成功
                 //注册成功会返回device token
-                Log.e(TAG, "注册成功:" + deviceToken);
+                //Log.e(TAG, "注册成功:" + deviceToken);
             }
 
             @Override
